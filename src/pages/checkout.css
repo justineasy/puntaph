@@ -359,8 +359,13 @@
     grid-template-columns: 1fr;
   }
 
+  /* One column: the summary sits above the form, so its desktop sticky
+     would glue the card over the form below it (Chrome anchors a sticky
+     grid item to the whole grid) — taps and buttons ended up behind the
+     card. Let it scroll with the page. */
   .co-side {
     order: -1;
+    position: static;
   }
 }
 
