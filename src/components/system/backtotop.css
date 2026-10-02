@@ -93,6 +93,15 @@
   outline-offset: 3px;
 }
 
+/* the fixed booking bar owns the bottom edge on stay pages (phones and
+   small tablets) — the pill would land squarely on the Reserve button */
+
+@media (max-width: 960px) {
+  .site:has(.stay) .btt {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btt,
   .btt-ring-fill,

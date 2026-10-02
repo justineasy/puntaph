@@ -363,22 +363,34 @@
     grid-template-columns: 1fr;
   }
 
+  /* The booking bar and the add-to-trip CTA both claim the bottom slot,
+     so they ride together in one fixed stack: DOM order is card, pill —
+     column-reverse floats the pill above the bar and keeps the reserve
+     button resting on the nav. The wrapper is click-through so the gaps
+     around the pill let taps fall to the page underneath. The page
+     padding below clears the whole stack, not just the nav. */
+
   .stay-side {
-    order: 0;
-    position: static; /* sticky means nothing in a stacked flow */
+    position: fixed;
+    top: auto; /* the base `top` would stretch this fixed box to the navbar — it must hug its content */
+    left: 0;
+    right: 0;
+    bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: flex;
+    flex-direction: column-reverse;
+    pointer-events: none;
   }
 
-  /* the add-to-trip CTA becomes a fixed bottom bar — always in reach,
-   floated above the mobile nav (60px + safe area). The 160px page
-   padding below keeps the end of the content clear of it. */
+  .stay-side .bk,
+  .stay-side .trip-add {
+    position: static;
+    pointer-events: auto;
+  }
 
   .stay-side .trip-add {
-    position: fixed;
-    left: 12px;
-    right: 12px;
-    bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom, 0px) + 10px);
-    z-index: 90;
-    margin-top: 0;
+    width: auto;
+    margin: 0 12px 10px;
     background: var(--charcoal);
     border-color: var(--charcoal);
     color: var(--ivory);
@@ -392,7 +404,7 @@
   }
 
   .stay {
-    padding-bottom: 160px;
+    padding-bottom: 240px; /* clears the fixed booking stack (pill + bar + nav) */
   }
 }
 

@@ -196,16 +196,23 @@ em.accent {
   letter-spacing: 0.005em;
 }
 
-/* page enter fade — every route change breathes in */
+/* page enter fade — every route change breathes in.
+
+   Deliberately opacity-only. A translate inside a fill-mode 'both'
+   animation never lets go: when the animation finishes, Chrome keeps
+   resolving the ending keyframe to an identity matrix rather than `none`,
+   and any transform on a page container makes it the containing block
+   for its position: fixed descendants. That re-anchored the mobile
+   booking bar to the whole article — the fixed bottom bar ballooned into
+   a full-page overlay that covered the stay page and swallowed every
+   tap. The fade alone carries the entrance. */
 
 @keyframes pageIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: none;
   }
 }
 
@@ -217,18 +224,22 @@ main > * {
    out, the page, navbar, footer and mobile nav fade up to meet it, so the
    handoff reads as one motion instead of a cut.
 
-   Two deliberate constraints:
+   Three deliberate constraints:
 
    1. Each element fades on its OWN opacity, never via an ancestor. An
       ancestor at opacity < 1 becomes the containing block for every
       position: fixed descendant, so the navbar and mobile nav would
       re-anchor to the document box and visibly jump mid-transition.
 
-   2. The list is EXPLICIT, not `.site > *`. With fill-mode 'both' the
-      ending keyframe outranks normal declarations forever — so any child
-      that hides itself with opacity (BackToTop: `opacity: 0`) would be
-      pinned visible for the rest of the session. Only the chrome that
-      genuinely wants a reveal is named here. */
+   2. The list is EXPLICIT, not `.site > *` — only the chrome that
+      genuinely wants a reveal is named here.
+
+   3. Fill-mode is BACKWARDS, not 'both'. A forwards fill keeps the
+      animation applied forever, and Chrome keeps the stacking context
+      with it — the footer, later in the tree, would then paint over
+      everything main holds, including the mobile booking stack pinned
+      inside it. Once the fade ends these elements are plain opacity: 1
+      anyway, so the fill was buying nothing. */
 
 .site.is-in > main,
 .site.is-in > .nav,
@@ -242,7 +253,7 @@ main > * {
      a blank ivory flash (measured: entry 0.01 / page 0.22 simultaneously).
      So the page fades all the way in BEHIND the still-opaque veil, and the
      reveal you actually see is the veil dissolving off a formed page. */
-  animation: siteIn 0.5s var(--ease) both;
+  animation: siteIn 0.5s var(--ease) backwards;
 }
 
 @keyframes siteIn {
@@ -254,7 +265,9 @@ main > * {
    movement — it carries none of the vestibular risk that reduced-motion
    exists to prevent — while the entry's own exit is a cross-fade too, so
    dropping it would put a hard cut where the loader used to be. The rule
-   below is only for `pageIn`, which translates. */
+   below is only for `pageIn` — skipped outright rather than left to the
+   blanket rule farther down, whose 0.01ms flatten could still land one
+   frame of the fill's opacity 0. */
 
 @media (prefers-reduced-motion: reduce) {
   main > * {

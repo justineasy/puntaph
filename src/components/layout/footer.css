@@ -106,6 +106,12 @@
     padding-bottom: calc(28px + var(--mnav-h, 0px) + env(safe-area-inset-bottom, 0px));
   }
 
+  /* on the stay page the booking stack (trip pill + reserve bar) clears
+     the nav too — the base row needs to miss all of it, not just the nav */
+  .site:has(.stay) .footer {
+    padding-bottom: calc(178px + var(--mnav-h, 0px) + env(safe-area-inset-bottom, 0px));
+  }
+
   .footer-inner {
     grid-template-columns: 1fr;
   }
