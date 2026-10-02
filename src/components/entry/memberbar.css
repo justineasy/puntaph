@@ -1,0 +1,359 @@
+/* ============================================================
+   MEMBER BAR — slim ribbon at the very top
+   ============================================================ */
+
+:root {
+  /* The bar's own 38px PLUS the status-bar/notch inset. index.html asks for
+     viewport-fit=cover, which lets the layout run under the iPhone status
+     bar — so without this the whole ribbon hides beneath it. Folding the
+     inset into --bar-h means every offset that already uses it (the
+     navbar's `top`, --nav-h sticky offsets, the sign-in popover anchor)
+     clears the notch for free. */
+  --bar-h: calc(38px + env(safe-area-inset-top, 0px));
+}
+
+/* dismissed — the reserved strip collapses, but the notch clearance stays
+   so the navbar never slides up under the status bar */
+:root.mbar-hidden {
+  --bar-h: env(safe-area-inset-top, 0px);
+}
+
+.mbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 110; /* above the navbar (100) */
+  height: var(--bar-h);
+  /* height covers the inset; the padding keeps the ribbon's own content
+     in the safe region beneath it */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  background: var(--forest-deep);
+  color: var(--ivory);
+}
+
+.mbar-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mbar-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: rgba(244, 240, 232, 0.88);
+}
+
+.mbar-note strong {
+  color: var(--ivory);
+  font-weight: 600;
+}
+
+.mbar-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--sand);
+  flex: none;
+}
+
+.mbar-note--on {
+  color: var(--ivory);
+}
+
+.mbar-action {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  border: 1px solid rgba(244, 240, 232, 0.35);
+  border-radius: 999px;
+  padding: 6px 16px;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.mbar-action:hover {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--forest-deep);
+}
+
+.mbar-action--quiet {
+  border-color: transparent;
+  opacity: 0.75;
+}
+
+.mbar-action--quiet:hover {
+  background: transparent;
+  border-color: rgba(244, 240, 232, 0.35);
+  color: var(--ivory);
+  opacity: 1;
+}
+
+.mbar-side {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mbar-close {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: rgba(244, 240, 232, 0.7);
+  transition:
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.mbar-close:hover {
+  background: rgba(244, 240, 232, 0.14);
+  color: var(--ivory);
+}
+
+.mbar-close svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ————— reusable sign-in control ————— */
+
+.si {
+  position: relative;
+  display: inline-flex;
+}
+
+.si-btn {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 7px 16px;
+  transition:
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.si-btn:hover {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--ivory);
+}
+
+.si--nav .si-btn {
+  border-color: var(--line-strong);
+}
+
+/* checkout — a quiet inline offer beside the fields it would fill. The
+   popover opens to the RIGHT (anchored left) because on a phone this
+   control sits near the left edge and a right-anchored panel would fall
+   off screen. */
+.si--checkout .si-btn {
+  padding: 5px 12px;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+}
+
+.si--checkout .si-pop {
+  left: 0;
+  right: auto;
+}
+
+/* profile — the join card is a clipping container (its glow is a clipped
+   ::before), so a popover anchored inside it gets cut to a sliver on both
+   axes, and focusing the email field scrolls that overflow-hidden box,
+   dragging the card's own copy out of view. Here the form opens in flow
+   inside the card instead: no clipping, no drift, nothing off-screen. */
+.si--profile {
+  display: block;
+  width: 100%;
+  justify-self: stretch;
+}
+
+.si--profile .si-pop {
+  position: static;
+  width: 100%;
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.nav.is-over-hero .si--nav .si-btn {
+  color: var(--ivory);
+  border-color: rgba(244, 240, 232, 0.5);
+}
+
+.nav.is-over-hero .si--nav .si-btn:hover {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--charcoal);
+}
+
+/* popover anchored to the control that opened it */
+.si-pop {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(320px, calc(100vw - 32px));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+  z-index: 130;
+  animation: siPop 0.35s var(--ease-out);
+  text-align: left;
+}
+
+.si-pop.is-leaving {
+  animation: siPopOut 0.4s var(--ease) forwards;
+}
+
+@keyframes siPop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes siPopOut {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+
+.si-pop-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.si-pop-sub {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--charcoal-soft);
+}
+
+.si-pop form {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.si-field {
+  display: block;
+  text-align: left;
+}
+
+.si-fine {
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--stone);
+}
+
+/* ————— sign-in popover (bar-anchored) ————— */
+
+.mbar-pop-anchor {
+  position: fixed;
+  top: var(--bar-h);
+  right: max(var(--gutter), (100vw - 1440px) / 2 + var(--gutter));
+  z-index: 120;
+}
+
+.mbar-pop {
+  width: min(340px, calc(100vw - 32px));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+  animation: mbarPop 0.35s var(--ease-out);
+}
+
+.mbar-pop.is-leaving {
+  animation: mbarPopOut 0.4s var(--ease) forwards;
+}
+
+@keyframes mbarPop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes mbarPopOut {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+
+.mbar-pop-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.mbar-pop-sub {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--charcoal-soft);
+}
+
+.mbar-pop form {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.mbar-field {
+  display: block;
+  text-align: left;
+}
+
+.mbar-fine {
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--stone);
+}
+
+/* ————— small screens ————— */
+
+@media (max-width: 640px) {
+  :root {
+    --bar-h: calc(34px + env(safe-area-inset-top, 0px));
+  }
+
+  .mbar-note {
+    font-size: 11.5px;
+  }
+
+  .mbar-pop-anchor {
+    right: 16px;
+  }
+
+  /* the nav sign-in needs room next to the avatar on phones */
+  .si--nav .si-btn {
+    padding: 6px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mbar-pop,
+  .mbar-pop.is-leaving {
+    animation-duration: 0.01ms !important;
+  }
+}

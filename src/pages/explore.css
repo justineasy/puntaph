@@ -1,0 +1,547 @@
+/* ============================================================
+   EXPLORE — editorial collection
+   hero → filter bar → featured → mosaic → carousel → destinations
+   ============================================================ */
+
+.explore {
+  padding-top: 0;
+}
+
+/* ————— hero ————— */
+
+.exhero {
+  padding-top: calc(var(--nav-h) + clamp(28px, 5vw, 64px));
+  padding-bottom: 0;
+}
+
+.exhero-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: end;
+}
+
+/* bottom-aligned copy must clear the floating search bar that
+   overlaps the hero's bottom edge — reserved clearance, never collide */
+.exhero-copy {
+  padding-bottom: clamp(72px, 8vw, 112px);
+}
+
+.exhero-title {
+  margin-top: 18px;
+  font-size: clamp(40px, 6.2vw, 88px);
+}
+
+.exhero-sub {
+  margin-top: 20px;
+  max-width: 44ch;
+  font-size: clamp(15px, 1.6vw, 17.5px);
+  line-height: 1.65;
+  color: var(--charcoal-soft);
+}
+
+.exhero-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.exhero-media img {
+  width: 100%;
+  height: clamp(420px, 66vh, 640px);
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 860px) {
+  .exhero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* floating search — overlaps the hero's bottom edge.
+   z-index must beat the sticky filter bar (40): this section is its own
+   stacking context, so the popover's z-index is capped at THIS value. */
+.exhero-search {
+  position: relative;
+  z-index: 50;
+  margin-top: calc(clamp(30px, 4.5vw, 60px) * -1);
+  padding-bottom: clamp(28px, 4vw, 48px);
+}
+
+/* ————— stays tab band — the index has its own front door ————— */
+
+.staysband {
+  background: var(--ivory-warm); /* a different temperature than Explore */
+  border-bottom: 1px solid var(--line);
+  padding: calc(var(--nav-h) + clamp(40px, 6vw, 84px)) 0 clamp(30px, 4vw, 52px);
+}
+
+.staysband-title {
+  margin-top: 16px;
+  font-size: clamp(38px, 5.6vw, 80px);
+}
+
+.staysband-sub {
+  margin-top: 18px;
+  max-width: 46ch;
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.65;
+  color: var(--charcoal-soft);
+}
+
+.staysband-count {
+  margin-top: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+
+/* front-matter stats — the catalog's vital numbers */
+.staysband-stats {
+  margin: 20px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: clamp(28px, 5vw, 64px);
+}
+
+.staysband-stats dt {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--charcoal);
+}
+
+.staysband-stats dd {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ————— stays-tab filter bar extras ————— */
+
+.chip-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  margin-left: 2px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 600;
+  background: rgba(28, 26, 22, 0.08);
+  color: var(--charcoal-soft);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.chip.is-active .chip-count {
+  background: rgba(244, 240, 232, 0.18);
+  color: var(--ivory);
+}
+
+.filterbar-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterbar-sort .field-label {
+  margin-bottom: 0;
+}
+
+.filterbar-sort .idx-select {
+  padding: 7px 14px;
+  font-size: 12.5px;
+}
+
+.filterbar-sort.is-set .idx-select {
+  border-color: var(--forest);
+  color: var(--forest);
+}
+
+.staysband-search {
+  margin-top: clamp(24px, 3.4vw, 40px);
+}
+
+/* ————— filter bar ————— */
+
+.explore-filterbar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 40;
+  background: rgba(250, 247, 241, 0.88);
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  border-bottom: 1px solid var(--line); /* one hairline, not a boxed strip */
+  padding: 12px 0;
+}
+
+.explore-cats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.explore-cats::-webkit-scrollbar {
+  display: none;
+}
+
+.explore-spacer {
+  flex: 1;
+}
+
+.filter-count {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: var(--forest);
+  color: var(--ivory);
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+/* ————— body ————— */
+
+.explore-body {
+  padding-top: clamp(36px, 5vw, 64px);
+  padding-bottom: clamp(56px, 8vw, 110px);
+}
+
+/* ————— the collection ————— */
+
+.explore-lead {
+  margin-bottom: clamp(28px, 4vw, 52px);
+}
+
+/* LARGE / small small / LARGE rhythm */
+.explore-mosaic {
+  display: grid;
+  grid-template-columns: 1.22fr 1fr 1fr;
+  grid-template-rows: minmax(360px, 44vh) minmax(360px, 44vh);
+  gap: clamp(18px, 2.4vw, 30px);
+}
+
+.mosaic-cell--1 {
+  grid-row: 1 / 3;
+}
+
+.mosaic-cell--4 {
+  grid-column: 2 / 4;
+}
+
+.explore-mosaic .ovl-wrap,
+.explore-mosaic .ovl {
+  height: 100%;
+  min-height: 0;
+}
+
+.explore-rail {
+  margin-top: clamp(64px, 9vw, 128px);
+}
+
+/* ————— filtered results ————— */
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 40px) clamp(16px, 2vw, 26px);
+}
+
+/* editorial lead + quieter grid below — the results page keeps a
+   hierarchy instead of flattening into repetition */
+.explore-grid--rest {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.explore-grid--rest .ovl {
+  min-height: clamp(300px, 34vw, 400px);
+}
+
+.explore-grid--rest .ovl-name {
+  font-size: clamp(19px, 1.7vw, 23px);
+}
+
+.explore-grid--rest .ovl-line {
+  font-size: 14px;
+}
+
+.explore-where {
+  margin-bottom: 28px;
+}
+
+.explore-where .muted {
+  font-size: 0.55em;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-top: 6px;
+}
+
+/* ————— skeletons ————— */
+
+.skel-featured {
+  margin-bottom: clamp(28px, 4vw, 52px);
+}
+
+.explore-skeletons .explore-grid {
+  margin-top: 0;
+}
+
+/* the grid skeletons carry the quieter proportions the real '--rest'
+   cards use, so the swap from loading to content is invisible */
+.explore-grid--rest .skeleton-ovl {
+  min-height: clamp(300px, 34vw, 400px);
+}
+
+/* ————— destinations ————— */
+
+.explore-picks {
+  padding-top: 0;
+}
+
+.explore-dests {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 26px);
+}
+
+.explore-empty {
+  text-align: center;
+  padding: 80px 0;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+
+/* ————— drawer ————— */
+
+.drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.drawer-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 16, 0.45);
+  border: 0;
+  cursor: pointer;
+  animation: fadeIn 0.3s var(--ease);
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(430px, 94vw);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  animation: drawerIn 0.45s var(--ease-out);
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(60px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  transition: background-color 0.25s var(--ease);
+}
+
+.drawer-close:hover {
+  background: rgba(28, 26, 22, 0.06);
+}
+
+.drawer-close svg {
+  width: 17px;
+  height: 17px;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: grid;
+  gap: 28px;
+}
+
+.drawer-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 12px;
+}
+
+.drawer-current {
+  font-size: 14.5px;
+  margin-bottom: 12px;
+}
+
+.drawer-body input[type='range'] {
+  width: 100%;
+  accent-color: var(--forest);
+}
+
+.drawer-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.drawer-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-top: 1px solid var(--line);
+}
+
+.drawer-foot .btn {
+  padding: 12px 22px;
+}
+
+/* ————— responsive ————— */
+
+@media (max-width: 1100px) {
+  .explore-grid,
+  .explore-grid--rest {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .explore-mosaic {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(320px, 38vh) minmax(320px, 38vh) minmax(320px, 38vh);
+  }
+
+  .mosaic-cell--1 {
+    grid-row: auto;
+    grid-column: 1 / -1;
+  }
+
+  .mosaic-cell--4 {
+    grid-column: 1 / -1;
+  }
+
+  .explore-dests {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .staysband {
+    padding-top: calc(var(--nav-h) + 28px);
+  }
+
+  .exhero {
+    padding-top: calc(var(--nav-h) + 18px);
+  }
+
+  .exhero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .exhero-copy {
+    padding-bottom: 0;
+  }
+
+  .exhero-media img {
+    height: min(48vh, 420px);
+  }
+
+  .exhero-search {
+    margin-top: -26px;
+    padding-bottom: 22px;
+  }
+
+  .explore-filterbar {
+    /* the navbar stays fixed on mobile too — the sticky bar must
+       dock below it, not underneath it */
+    top: var(--nav-h);
+  }
+
+  .explore-mosaic {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .mosaic-cell--1,
+  .mosaic-cell--4 {
+    grid-row: auto;
+    grid-column: auto;
+  }
+
+  .explore-mosaic .ovl {
+    min-height: 380px;
+    height: auto;
+  }
+
+  .explore-grid,
+  .explore-grid--rest {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .explore-grid .ovl,
+  .explore-grid--rest .ovl {
+    min-height: 400px;
+  }
+
+  .explore-grid--rest .ovl-name {
+    font-size: clamp(21px, 2vw, 27px);
+  }
+
+  .explore-grid--rest .ovl-line {
+    font-size: 15px;
+  }
+
+  .explore-dests {
+    grid-template-columns: 1fr;
+  }
+
+  .explore-body {
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .exhero-sub {
+    font-size: 15px;
+  }
+
+  .explore-filterbar {
+    padding: 10px 0;
+  }
+}

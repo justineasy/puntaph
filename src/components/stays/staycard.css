@@ -1,0 +1,171 @@
+.stay-card {
+  position: relative;
+}
+
+.stay-card {
+  position: relative;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.card-media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px -18px rgba(28, 26, 22, 0.35);
+  transition: box-shadow 0.5s var(--ease), transform 0.5s var(--ease-out);
+}
+
+.stay-card:hover .card-media {
+  box-shadow: 0 26px 48px -22px rgba(28, 26, 22, 0.42);
+  transform: translateY(-3px);
+}
+
+/* sheen sweep — a soft light travels across the photograph on hover.
+   Sits on .card-media (not the img) so it never fights the zoom. */
+
+.card-media::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  z-index: 2;
+  width: 55%;
+  height: 220%;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent
+  );
+  transform: rotate(8deg) translateX(0);
+  transition: left 0.9s var(--ease-soft);
+}
+
+.stay-card:hover .card-media::before {
+  left: 130%;
+  transition: left 0.9s var(--ease-soft);
+}
+
+/* warm grade on hover — the photo leans golden-hour */
+
+.card-media img {
+  transition:
+    transform 1.4s var(--ease-soft),
+    filter 0.8s var(--ease);
+  filter: saturate(0.98);
+}
+
+.stay-card:hover .card-media img {
+  filter: saturate(1.08) brightness(1.03);
+}
+
+.card-flag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+}
+
+.card-heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+}
+
+.stay-card-info {
+  padding: 14px 2px 0;
+}
+
+.stay-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.stay-card-name {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.stay-card-loc {
+  font-size: 13.5px;
+  color: var(--stone);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.stay-card-line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--charcoal-soft);
+  margin-top: 7px;
+  opacity: 0.9;
+}
+
+.stay-card-price {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.stay-card-was {
+  color: var(--stone);
+  font-size: 12.5px;
+}
+
+/* the view pill — inside the photo, bottom-right. It can never collide
+   with the price row because it belongs to the media layer. */
+.card-view {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(250, 247, 241, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--charcoal);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.45s var(--ease-out);
+  pointer-events: none;
+}
+
+.card-view svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.stay-card:hover .card-view,
+.stay-card:focus-within .card-view {
+  opacity: 1;
+  transform: none;
+}
+
+.stay-card:hover .card-view svg {
+  transform: translate(1px, -1px);
+}

@@ -1,0 +1,246 @@
+.trips {
+  padding: calc(var(--nav-h) + 36px) var(--gutter) 120px;
+  min-height: 70vh;
+}
+
+.page-head {
+  margin-bottom: 26px;
+}
+
+.trips-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.trips-empty {
+  min-height: 46vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--sand-soft) 100%);
+  padding: clamp(36px, 6vw, 72px) 24px;
+}
+
+.trips-empty .btn {
+  margin-top: 10px;
+}
+
+.trips-empty-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.trips-list {
+  display: grid;
+  gap: 18px;
+  max-width: 860px;
+}
+
+.trip-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease-out);
+}
+
+.trip-card > img {
+  align-self: stretch;
+  height: 100%;
+  max-height: 230px;
+}
+
+.trip-card:hover {
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.trip-card.is-cancelled {
+  opacity: 0.62;
+}
+
+.trip-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.trip-status {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.trip-status--upcoming { color: var(--forest); }
+.trip-status--past { color: var(--stone); }
+.trip-status--cancelled { color: var(--danger); }
+
+.trip-where {
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.trip-tagline {
+  margin-top: 10px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--charcoal-soft);
+}
+
+.trip-foot {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.trip-meta {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--charcoal-soft);
+}
+
+.trip-total {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.trip-actions {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.trip-link {
+  font-size: 13.5px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 2px;
+  transition: border-color 0.25s var(--ease);
+}
+
+.trip-link:hover {
+  border-color: var(--charcoal);
+}
+
+.trip-cancel {
+  color: var(--danger);
+  background: none;
+}
+
+/* inline cancel confirmation — swaps into the actions row, no modal */
+
+.trip-confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border: 1px solid rgba(156, 74, 56, 0.35);
+  border-left: 3px solid var(--danger);
+  border-radius: var(--radius);
+  background: rgba(156, 74, 56, 0.05);
+  animation: confirmIn 0.3s var(--ease-out);
+}
+
+@keyframes confirmIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.trip-confirm-q {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.trip-confirm-btns {
+  display: inline-flex;
+  gap: 18px;
+  flex: none;
+}
+
+/* book again — the one action a cancelled trip should offer */
+
+.trip-rebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  background: var(--forest);
+  border-radius: 999px;
+  padding: 8px 15px;
+  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease-out);
+}
+
+.trip-rebook:hover {
+  background: var(--forest-deep);
+  transform: translateY(-1px);
+}
+
+.trip-rebook svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.trip-rebook:hover svg {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-confirm {
+    animation: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-card {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-card img {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+}

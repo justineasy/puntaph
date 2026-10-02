@@ -1,0 +1,586 @@
+/* ============================================================
+   SKELETONS — branded loading states.
+
+   Loading isn't a blank screen. It's the layout, already here, inhaling.
+   Two rules govern everything in this file:
+
+     1. GEOMETRY MIRRORS THE REAL COMPONENT. Every composition reuses the
+        live layout classes (stay-card-info, stay-card-price, ovl-info…),
+        so when the content lands there is no shift — the page only
+        sharpens into place.
+
+     2. THE SHIMMER IS A WHISPER. A low-contrast sheen, tinted toward the
+        palette rather than stock grey, phase-offset per block so a screen
+        full of skeletons never strobes in lockstep.
+
+   The primitive is `.skeleton`; everything else is composition.
+   ============================================================ */
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* keeps the sheen's compositing local to the block */
+  border-radius: var(--radius);
+  background-color: var(--skeleton-base, var(--sand-soft));
+  /* a faint top-down wash stops a large block from reading as flat grey */
+  background-image: var(
+    --skeleton-wash,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 55%)
+  );
+}
+
+/* ————— the sheen —————————————————————————————————————
+   A soft, slightly diagonal band tinted toward ivory. `--skeleton-delay`
+   carries a NEGATIVE phase, so every block is already mid-sweep on first
+   paint — nothing ever sits still waiting its turn. */
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    var(--skeleton-sheen, rgba(255, 255, 255, 0.72)) 50%,
+    transparent 70%
+  );
+  animation: skeletonSweep 1.9s var(--ease-soft) infinite;
+  animation-delay: var(--skeleton-delay, 0s);
+}
+
+@keyframes skeletonSweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ————— shapes ————— */
+
+/* a line of type */
+.skeleton--text {
+  height: 12px;
+  border-radius: 6px;
+}
+
+/* a serif headline — taller, softer corners */
+.skeleton--title {
+  height: 19px;
+  border-radius: 8px;
+}
+
+/* circles — avatars, the quiet arrow pills */
+.skeleton--circle {
+  border-radius: 999px;
+}
+
+/* a media block — the photograph's place, held open */
+.skeleton--media {
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+
+/* ————— dark surfaces ————————————————————————————————
+   Set on a container and inherited by its .skeleton children, so an
+   entire dark card flips to the light-on-charcoal palette in one move. */
+
+.skeleton-dark {
+  --skeleton-base: rgba(244, 240, 232, 0.1);
+  --skeleton-sheen: rgba(244, 240, 232, 0.16);
+  --skeleton-wash: none;
+}
+
+/* ————— reduced motion ————————————————————————————————
+   No sweep. A still, correctly-toned block is the honest state. */
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    display: none;
+  }
+}
+
+/* ============================================================
+   COMPOSED SKELETONS
+   Each mirrors a real component class-for-class.
+   ============================================================ */
+
+/* ————— stay card (mirrors StayCard) ————— */
+
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-card .skeleton--media {
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 10px 30px -18px rgba(28, 26, 22, 0.35);
+}
+
+.skeleton-card .skeleton--title {
+  flex: none;
+  max-width: 62%;
+}
+
+/* text lines sit off the title the way the real copy does */
+.skeleton-line {
+  margin-top: 9px;
+}
+
+/* ————— overlay card (mirrors OverlayCard) ————— */
+
+.skeleton-ovl {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  min-height: clamp(340px, 42vw, 480px);
+  border-radius: var(--radius);
+  background: var(--charcoal);
+  /* the same light-on-charcoal tones the real card's type uses */
+  --skeleton-base: rgba(244, 240, 232, 0.1);
+  --skeleton-sheen: rgba(244, 240, 232, 0.16);
+  --skeleton-wash: none;
+}
+
+/* the persistent floor gradient that keeps the real card's type legible */
+.skeleton-ovl::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(15, 13, 11, 0.78) 0%,
+    rgba(15, 13, 11, 0.38) 26%,
+    rgba(15, 13, 11, 0.08) 46%,
+    transparent 62%
+  );
+}
+
+.skeleton-ovl-info {
+  position: relative;
+  z-index: 2;
+  padding: clamp(20px, 2.4vw, 30px);
+  padding-top: 72px;
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-ovl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.skeleton-ovl-name {
+  margin-top: 14px;
+  width: 60%;
+}
+
+.skeleton-ovl-line {
+  margin-top: 10px;
+  width: 74%;
+}
+
+.skeleton-ovl-pricerow {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(244, 240, 232, 0.22);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.skeleton-ovl--featured {
+  min-height: clamp(440px, 52vw, 640px);
+}
+
+.skeleton-ovl--featured .skeleton-ovl-name {
+  width: 42%;
+  height: 26px;
+}
+
+@media (max-width: 640px) {
+  .skeleton-ovl {
+    min-height: 380px;
+  }
+
+  .skeleton-ovl--featured {
+    min-height: 460px;
+  }
+
+  .skeleton-ovl-info {
+    padding: 20px;
+    padding-top: 72px;
+  }
+}
+
+/* ————— gallery (mirrors Stay.tsx .gallery) ————— */
+
+.skeleton-gallery {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  grid-template-rows: 100%; /* explicit row so the blocks can't inflate */
+  gap: 14px;
+  height: clamp(320px, 52vh, 540px);
+}
+
+.skeleton-gallery-main,
+.skeleton-gallery-side,
+.skeleton-gallery-thumb {
+  min-width: 0;
+  min-height: 0;
+  border-radius: var(--radius-lg);
+}
+
+.skeleton-gallery-side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 760px) {
+  .skeleton-gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+  }
+
+  .skeleton-gallery-main {
+    height: clamp(240px, 42vh, 360px);
+  }
+
+  .skeleton-gallery-side {
+    display: none; /* the live gallery shows a single column here too */
+  }
+}
+
+/* ————— index list (mirrors StayIndex .idx-row) ————— */
+
+.skeleton-index {
+  border-top: 1px solid var(--line-strong);
+}
+
+.skeleton-index-row {
+  display: grid;
+  grid-template-columns: 132px 1fr auto;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.skeleton-index-thumb {
+  width: 132px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+}
+
+.skeleton-index-main {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.skeleton-index-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .skeleton-index-row {
+    grid-template-columns: 96px 1fr auto;
+  }
+
+  .skeleton-index-thumb {
+    width: 96px;
+  }
+}
+
+@media (max-width: 640px) {
+  .skeleton-index-row {
+    grid-template-columns: 84px 1fr auto;
+    padding: 14px 0;
+  }
+
+  .skeleton-index-thumb {
+    width: 84px;
+  }
+}
+
+/* ============================================================
+   PUNTA LOADER — the brand mark, loading.
+
+   A miniature of the Entry cinematic, which draws a horizon, a sun and a
+   coastline in hairlines before its wordmark settles. The loader says the
+   same thing in three moves:
+
+     1. the letters SETTLE — wide apart, converging into place
+     2. a warm capiz light PASSES through them, then rests
+     3. a sun CROSSES a hairline horizon
+
+   The wordmark doubles as the skeleton: its letters are the ghost, and the
+   light travelling through them is the same sheen that crosses every other
+   loading surface. Monogram from the favicon.
+   ============================================================ */
+
+/* ⚠  index.html carries a hand-minified copy of this entire section — the
+   boot loader has to paint before any bundle exists. Change both, or the
+   handoff from boot to app will jump. */
+
+.punta-loader {
+  --pl-glow: var(--gold);
+  --pl-line: var(--line-strong);
+  --pl-bloom: rgba(184, 154, 106, 0.55);
+  --pl-tile-sheen: rgba(255, 255, 255, 0.34);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.punta-loader-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* the monogram — the favicon's rounded charcoal square, carrying the same
+   light that travels across every other skeleton surface */
+.punta-loader-tile {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  width: var(--pl-tile, 34px);
+  height: var(--pl-tile, 34px);
+  border-radius: calc(var(--pl-tile, 34px) * 0.28);
+  background: var(--charcoal);
+  color: var(--ivory);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: calc(var(--pl-tile, 34px) * 0.54);
+  line-height: 1;
+}
+
+/* capiz light — a warm band crosses the monogram, then rests before the
+   next pass. The pause is what makes it read as lit rather than animated. */
+.punta-loader-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    100deg,
+    transparent 34%,
+    var(--pl-tile-sheen) 50%,
+    transparent 66%
+  );
+  animation: puntaCapiz 2.6s var(--ease-soft) infinite;
+}
+
+@keyframes puntaCapiz {
+  0% { transform: translateX(-100%); }
+  55% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* the wordmark as skeleton — a gradient clipped to the letters. The base
+   tone is ghosted; the peak sweeps through and briefly makes it read. */
+.punta-loader-word {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--pl-word, 26px);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  line-height: 1;
+  color: transparent;
+  background-image: linear-gradient(
+    100deg,
+    var(--pl-base, rgba(28, 26, 22, 0.2)) 42%,
+    var(--pl-peak, var(--charcoal)) 50%,
+    var(--pl-base, rgba(28, 26, 22, 0.2)) 58%
+  );
+  background-size: 300% 100%;
+  background-position: 0% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation:
+    puntaSettle 1s var(--ease-out) both,
+    puntaShimmer 2.6s var(--ease-soft) infinite;
+}
+
+/* The cinematic's wordmark arrival, reused: the letters come in wide apart
+   and converge into place. Letter-spacing and text-indent move together so
+   the word stays optically centred the whole way in.
+
+   Two deliberate omissions:
+
+   · no `filter: blur()` (unlike the cinematic) — this element also carries
+     `background-clip: text`, and that pairing can silently drop the text
+     clip in some Safari versions, painting the gradient as a solid bar.
+
+   · no `opacity` — the boot loader plays this at first paint and the React
+     loader mounts again later, restarting it. Opacity would snap the word
+     back to invisible mid-converge; tracking alone just re-tightens by a
+     pixel or so, which reads as nothing at all. */
+@keyframes puntaSettle {
+  from {
+    letter-spacing: 0.6em;
+    text-indent: 0.6em;
+  }
+  to {
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+  }
+}
+
+/* the light passes through the letters, then rests */
+@keyframes puntaShimmer {
+  0% { background-position: 0% 0; }
+  55% { background-position: 100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+/* ————— the horizon ————— */
+/* The cinematic draws a horizon and lets a sun cross it. Here it is in 1px:
+   a hairline with a warm light travelling along it. The box is taller than
+   the line so the sun's bloom has somewhere to spread before the clip. */
+
+.punta-loader-horizon {
+  position: relative;
+  overflow: hidden;
+  width: min(190px, 46vw);
+  height: 12px;
+}
+
+/* the line itself */
+.punta-loader-horizon::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  background: var(--pl-line);
+}
+
+/* the sun — brightest at its head, throwing a warm bloom */
+.punta-loader-horizon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 42%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--pl-glow));
+  box-shadow: 0 0 7px var(--pl-bloom);
+  animation: puntaHorizon 2.6s var(--ease-soft) infinite;
+}
+
+@keyframes puntaHorizon {
+  0% { transform: translate(-110%, -50%); }
+  60% { transform: translate(250%, -50%); }
+  100% { transform: translate(250%, -50%); }
+}
+
+.punta-loader-tagline {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ————— sizes ————— */
+
+.punta-loader--sm {
+  --pl-tile: 22px;
+  --pl-word: 14px;
+  gap: 0;
+}
+
+.punta-loader--sm .punta-loader-mark {
+  gap: 9px;
+}
+
+/* inline above a page of skeletons the mark stands alone — the horizon is
+   a full-page gesture and would only be clutter there */
+.punta-loader--sm .punta-loader-horizon {
+  display: none;
+}
+
+.punta-loader--lg {
+  --pl-tile: 48px;
+  --pl-word: 38px;
+}
+
+.punta-loader--lg .punta-loader-mark {
+  gap: 16px;
+}
+
+/* ————— on dark surfaces ————— */
+
+.punta-loader--dark {
+  --pl-base: rgba(244, 240, 232, 0.22);
+  --pl-peak: var(--ivory);
+  --pl-glow: var(--sand);
+  --pl-line: rgba(244, 240, 232, 0.16);
+  --pl-bloom: rgba(216, 201, 174, 0.5);
+  /* warm sand is what reads on the ivory tile */
+  --pl-tile-sheen: rgba(216, 201, 174, 0.6);
+}
+
+.punta-loader--dark .punta-loader-tile {
+  background: var(--ivory);
+  color: var(--charcoal);
+}
+
+.punta-loader--dark .punta-loader-tagline {
+  color: rgba(244, 240, 232, 0.6);
+}
+
+/* ————— the mark above a page of skeletons ————— */
+
+.skeleton-brand {
+  margin-bottom: clamp(20px, 3vw, 34px);
+}
+
+/* ————— reduced motion ————— */
+/* no sweep; the mark simply sits, fully legible — an idle brand, not a
+   frozen special effect */
+
+@media (prefers-reduced-motion: reduce) {
+  .punta-loader-word {
+    animation: none;
+    background-image: none;
+    color: var(--charcoal);
+  }
+
+  .punta-loader-tile::after {
+    display: none;
+  }
+
+  .punta-loader--dark .punta-loader-word {
+    color: var(--ivory);
+  }
+
+  /* the sun parks at the centre of the line instead of crossing it */
+  .punta-loader-horizon::after {
+    animation: none;
+    left: 50%;
+    width: 70%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, transparent, var(--pl-glow), transparent);
+  }
+}

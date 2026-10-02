@@ -1,0 +1,278 @@
+/* ============================================================
+   OVERLAY CARD — one object: image + info composed on a gradient
+   ============================================================ */
+
+.ovl-wrap {
+  display: block;
+  height: 100%;
+}
+
+.ovl {
+  position: relative;
+  height: 100%;
+  border-radius: var(--radius); /* one card language with StayCard */
+  overflow: hidden;
+  background: var(--charcoal);
+  box-shadow: 0 18px 44px -26px rgba(28, 26, 22, 0.4);
+  transition:
+    transform 0.55s var(--ease-out),
+    box-shadow 0.55s var(--ease);
+}
+
+.ovl:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -26px rgba(28, 26, 22, 0.48);
+}
+
+/* ————— media ————— */
+
+.ovl-media {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.ovl-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.3s var(--ease-soft);
+}
+
+.ovl:hover .ovl-media img {
+  transform: scale(1.045);
+}
+
+/* gradient split into two layers: a persistent floor (always there,
+   keeps type legible) + a hover veil that only cross-fades opacity —
+   GPU-friendly, no gradient repaint on hover */
+.ovl-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 13, 11, 0.78) 0%,
+    rgba(15, 13, 11, 0.38) 26%,
+    rgba(15, 13, 11, 0.08) 46%,
+    transparent 62%
+  );
+}
+
+.ovl-veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 13, 11, 0.16) 0%,
+    transparent 42%
+  );
+  transition: opacity 0.55s var(--ease);
+}
+
+.ovl:hover .ovl-veil {
+  opacity: 1;
+}
+
+/* ————— info block ————— */
+
+/* the card is the positioning context; the info block is simply the
+   last element in flow, pinned to the bottom of THIS card — it can
+   never detach, stay fixed, or overlap a sibling card */
+.ovl-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: clamp(20px, 2.4vw, 30px);
+  padding-top: 72px;
+  color: var(--ivory);
+  display: flex;
+  flex-direction: column;
+}
+
+.ovl-toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ovl-loc {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.82);
+}
+
+.ovl-rating {
+  color: rgba(244, 240, 232, 0.92);
+  font-size: 12.5px;
+}
+
+/* the one serif line — quiet weight, no bolding */
+.ovl-name {
+  margin-top: 12px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(21px, 2vw, 27px);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+}
+
+.ovl-name--lg {
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1.06;
+}
+
+.ovl-line {
+  margin-top: 7px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(244, 240, 232, 0.82);
+  max-width: 44ch;
+}
+
+/* hairline structure under the info — the price now sits on a rule,
+   not loose on the gradient */
+.ovl-pricerow {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(244, 240, 232, 0.22);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ovl-price {
+  font-size: 14px;
+  color: rgba(244, 240, 232, 0.88);
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.ovl-was {
+  color: rgba(244, 240, 232, 0.55);
+  font-size: 12.5px;
+}
+
+.ovl-price .price {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.ovl-price small {
+  font-weight: 400;
+  color: rgba(244, 240, 232, 0.58);
+}
+
+/* featured-only text CTA */
+.ovl-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.9);
+  white-space: nowrap;
+}
+
+.ovl-cta svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.ovl:hover .ovl-cta svg {
+  transform: translateX(5px);
+}
+
+/* standard cards answer with a quiet arrow */
+.ovl-go {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(244, 240, 232, 0.4);
+  border-radius: 999px;
+  color: rgba(244, 240, 232, 0.92);
+  transition:
+    transform 0.4s var(--ease-out),
+    background-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+.ovl-go svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.ovl:hover .ovl-go {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--charcoal);
+  transform: translateX(3px);
+}
+
+.ovl:hover .ovl-go svg {
+  transform: translateX(1px);
+}
+
+/* ————— flag + heart ————— */
+
+.ovl-flag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+}
+
+.ovl-heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+}
+
+/* ————— featured sizing ————— */
+
+.ovl--featured .ovl-line {
+  font-size: 16.5px;
+  max-width: 52ch;
+}
+
+/* min-heights give the card its cinematic proportion */
+.ovl {
+  min-height: clamp(340px, 42vw, 480px);
+}
+
+.ovl--featured {
+  min-height: clamp(440px, 52vw, 640px);
+}
+
+/* ————— small screens ————— */
+
+@media (max-width: 640px) {
+  .ovl {
+    min-height: 380px;
+  }
+
+  .ovl--featured {
+    min-height: 460px;
+  }
+
+  .ovl-info {
+    padding: 20px;
+    padding-top: 72px;
+  }
+}

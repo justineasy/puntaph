@@ -1,0 +1,19 @@
+.errbound {
+  padding: calc(var(--nav-h) + clamp(60px, 10vw, 120px)) var(--gutter) 120px;
+  min-height: 70vh;
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  align-content: start;
+}
+
+.errbound-sub {
+  max-width: 44ch;
+}
+
+.errbound-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}

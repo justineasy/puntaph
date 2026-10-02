@@ -1,0 +1,145 @@
+.profile {
+  padding: calc(var(--nav-h) + 36px) var(--gutter) 120px;
+  min-height: 70vh;
+}
+
+.profile-grid {
+  display: grid;
+  gap: 22px;
+  max-width: 640px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+}
+
+.profile-avatar {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--ivory);
+  font-family: var(--font-serif);
+  font-size: 22px;
+  box-shadow:
+    0 0 0 3px var(--paper),
+    0 0 0 4px rgba(62, 79, 60, 0.35);
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.profile-stat {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition:
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+.profile-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: rgba(62, 79, 60, 0.35);
+}
+
+.profile-num {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.profile-stat .muted {
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+
+.profile-region {
+  max-width: 640px;
+}
+
+.profile-join {
+  background: var(--ivory-warm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  position: relative;
+  overflow: hidden;
+}
+
+/* a quiet glow — the membership pitch panel */
+
+.profile-join::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(62, 79, 60, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.profile-join-sub {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.profile-join .btn {
+  margin-top: 8px;
+}
+
+.profile-signout {
+  justify-self: start;
+}
+
+.profile-links {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.profile-link {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background-color 0.25s var(--ease);
+}
+
+.profile-link:hover {
+  background: rgba(28, 26, 22, 0.04);
+}
+
+.profile-link + .profile-link {
+  border-top: 1px solid var(--line);
+}
+
+.profile-note {
+  font-size: 12.5px;
+}

@@ -1,0 +1,52 @@
+.mnav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: none;
+  background: rgba(250, 247, 241, 0.92);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  /* landscape notch — the bar spans the full width, so its end items would
+     otherwise sit under the sensor housing */
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  /* iOS Safari composites a translucent backdrop-filter badly while the
+     element's opacity is animating — and the site reveal does exactly
+     that to this bar — so the blur can flash or ghost mid-fade. Forcing
+     it onto its own layer keeps the blur stable through the transition. */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.mnav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 9px 0 7px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--stone);
+  transition: color 0.25s var(--ease);
+}
+
+.mnav-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mnav-item.is-active {
+  color: var(--charcoal);
+}
+
+@media (max-width: 860px) {
+  .mnav {
+    display: flex;
+  }
+}

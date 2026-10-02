@@ -1,0 +1,275 @@
+/* ============================================================
+   STORY — The Punta Edit, long-form
+   ============================================================ */
+
+.story {
+  background: var(--ivory);
+}
+
+/* ————— HERO ————— */
+
+.story-hero {
+  position: relative;
+  height: min(78vh, 760px);
+  min-height: 480px;
+  display: grid;
+}
+
+.story-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: storyHeroIn 1.6s var(--ease-out);
+}
+
+@keyframes storyHeroIn {
+  from { transform: scale(1.05); opacity: 0.4; }
+  to { transform: none; opacity: 1; }
+}
+
+.story-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(20, 18, 16, 0.44), transparent 40%),
+    linear-gradient(to top, rgba(20, 18, 16, 0.66), transparent 55%);
+}
+
+.story-hero-content {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  padding-bottom: clamp(40px, 6vw, 72px);
+  color: var(--ivory);
+}
+
+.story-title {
+  color: var(--ivory);
+  max-width: 16ch;
+  font-size: clamp(40px, 7vw, 96px);
+  margin-top: 16px;
+}
+
+.story-standfirst {
+  margin-top: 18px;
+  max-width: 58ch;
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.6;
+  color: rgba(244, 240, 232, 0.88);
+}
+
+.story-byline {
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.6);
+}
+
+/* ————— BODY ————— */
+
+.story-body {
+  padding-block: clamp(48px, 7vw, 96px) 0;
+  max-width: 720px;
+}
+
+/* center the narrow body inside the wide shell */
+.story-body {
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  width: 100%;
+}
+
+.story-section {
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.story-section-head {
+  margin-bottom: 18px;
+}
+
+.story-para {
+  font-size: clamp(15.5px, 1.9vw, 17.5px);
+  line-height: 1.75;
+  color: var(--charcoal-soft);
+  margin-bottom: 1.1em;
+}
+
+/* the drop cap — one serif letter holding the door open */
+
+.story-para.has-dropcap::first-letter {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.82;
+  padding-right: 0.12em;
+  padding-top: 0.05em;
+  color: var(--forest);
+}
+
+/* ————— PULL QUOTE ————— */
+
+.story-pullquote {
+  margin-block: clamp(28px, 4vw, 44px);
+  padding-block: clamp(22px, 3vw, 32px);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  text-align: center;
+}
+
+.story-pullquote p {
+  font-size: clamp(22px, 3.2vw, 32px);
+  line-height: 1.25;
+  color: var(--charcoal);
+  max-width: 30ch;
+  margin-inline: auto;
+}
+
+.story-pullquote p::before,
+.story-pullquote p::after {
+  color: var(--sand);
+}
+
+/* ————— FIELD NOTES ————— */
+
+.story-notes {
+  margin-block: clamp(40px, 6vw, 64px);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 3.5vw, 36px);
+  background: var(--paper);
+}
+
+.story-notes-grid {
+  margin: 18px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 32px;
+}
+
+.story-note dt {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 6px;
+}
+
+.story-note dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--charcoal-soft);
+}
+
+/* ————— WHERE TO SLEEP ————— */
+
+.story-stays {
+  margin-block: clamp(48px, 7vw, 80px);
+}
+
+.story-stays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: clamp(18px, 2.5vw, 28px);
+}
+
+/* ————— NEXT STORY ————— */
+
+.story-next {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 320px;
+  margin-top: clamp(48px, 7vw, 80px);
+}
+
+.story-next-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 7s var(--ease-soft);
+}
+
+.story-next:hover .story-next-img {
+  transform: scale(1.05);
+}
+
+.story-next-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(20, 18, 16, 0.78) 30%, rgba(20, 18, 16, 0.25) 70%);
+  transition: background 0.5s var(--ease);
+}
+
+.story-next:hover .story-next-scrim {
+  background: linear-gradient(100deg, rgba(20, 18, 16, 0.88) 30%, rgba(20, 18, 16, 0.3) 70%);
+}
+
+.story-next-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(48px, 7vw, 88px);
+  color: var(--ivory);
+}
+
+.story-next-title {
+  color: var(--ivory);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.story-next-arrow {
+  width: clamp(28px, 4vw, 44px);
+  height: clamp(28px, 4vw, 44px);
+  flex: none;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.story-next:hover .story-next-arrow {
+  transform: translateX(8px);
+}
+
+.story-next-place {
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.6);
+}
+
+/* ————— MISSING STORY ————— */
+
+.story-missing {
+  padding-block: clamp(80px, 12vw, 160px);
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+
+/* ————— RESPONSIVE ————— */
+
+@media (max-width: 700px) {
+  .story-body {
+    /* keep the editorial measure readable on phones */
+    max-width: 100%;
+  }
+
+  .story-notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-next-title {
+    font-size: clamp(26px, 7vw, 42px);
+  }
+}

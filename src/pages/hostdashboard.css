@@ -1,0 +1,272 @@
+.hd {
+  padding: calc(var(--nav-h) + 30px) 0 120px;
+  background: var(--ivory);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.hd-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.hd-metrics {
+  display: grid;
+  /* minmax(0, 1fr) — a plain 1fr can't shrink below its content's
+     min-content, so a wide figure stretches the track past the viewport */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.hd-metric {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition:
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+.hd-metric:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+  border-color: rgba(62, 79, 60, 0.35);
+}
+
+.hd-num {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1;
+}
+
+.hd-metric .muted {
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+
+.hd-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.hd-panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  transition: box-shadow 0.4s var(--ease);
+}
+
+.hd-panel:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+.hd-panel--wide {
+  grid-column: 1;
+}
+
+.hd-panel:nth-child(2) {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.hd-panel:nth-child(3) {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.hd-panel:nth-child(4) {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.hd-sub {
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.rev-chart {
+  width: 100%;
+  height: auto;
+}
+
+/* the revenue line draws itself in when the panel mounts */
+.rev-line {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  animation: revDraw 2s var(--ease-out) forwards;
+}
+
+@keyframes revDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev-line { animation: none; stroke-dashoffset: 0; }
+}
+
+.hd-months {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--stone);
+  margin-top: 6px;
+}
+
+.hd-msgs {
+  display: grid;
+  gap: 14px;
+}
+
+.hd-msg {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px;
+  margin: -4px -6px;
+  border-radius: var(--radius);
+  transition: background-color 0.25s var(--ease);
+}
+
+.hd-msg:hover {
+  background: var(--ivory-warm);
+}
+
+.hd-msg-ava {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.hd-msg-name {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.hd-msg-text {
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* the reservations table can't shrink below its columns on a phone, so it
+   scrolls inside the panel rather than widening the whole page */
+
+.hd-tablewrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hd-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.hd-table th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stone);
+  font-weight: 600;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.hd-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hd-status {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: rgba(62, 79, 60, 0.1);
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+
+.hd-status.is-pending {
+  color: #8a6a20;
+  background: rgba(160, 122, 40, 0.12);
+}
+
+.hd-cal {
+  display: grid;
+  gap: 14px;
+}
+
+.hd-week {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--stone);
+}
+
+.hd-week-bar {
+  height: 8px;
+  background: var(--ivory-warm);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hd-week-bar span {
+  display: block;
+  height: 100%;
+  background: var(--forest);
+  opacity: 0.55;
+  border-radius: 4px;
+  transform-origin: left;
+  animation: calFill 1.2s var(--ease-out) both;
+}
+
+.hd-week:nth-child(2) .hd-week-bar span { animation-delay: 0.15s; }
+.hd-week:nth-child(3) .hd-week-bar span { animation-delay: 0.3s; }
+
+@keyframes calFill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hd-week-bar span { animation: none; }
+}
+
+@media (max-width: 1000px) {
+  .hd-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hd-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hd-panel--wide,
+  .hd-panel:nth-child(2),
+  .hd-panel:nth-child(3),
+  .hd-panel:nth-child(4) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}

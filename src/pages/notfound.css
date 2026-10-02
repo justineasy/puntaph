@@ -1,0 +1,46 @@
+/* ============================================================
+   NOT FOUND — "Off the map"
+   ============================================================ */
+
+.nf {
+  padding: calc(var(--nav-h) + clamp(64px, 12vw, 140px)) var(--gutter) 120px;
+  min-height: 70vh;
+}
+
+.nf .eyebrow {
+  margin-bottom: 16px;
+}
+
+/* the ghost numeral — huge, quiet, unmistakably on-brand */
+
+.nf .eyebrow::before {
+  content: '404';
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(110px, 22vw, 240px);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: 0.02em;
+  color: var(--sand);
+  opacity: 0.55;
+  margin-bottom: 28px;
+  user-select: none;
+}
+
+.nf-sub {
+  margin-top: 18px;
+  font-size: clamp(15px, 2vw, 18px);
+  max-width: 38ch;
+}
+
+.nf .btn {
+  margin-top: 32px;
+}
+
+/* a second, quieter door — browsing on is often what people want */
+
+.nf .btn + .btn,
+.nf .nf-second {
+  margin-top: 14px;
+  display: inline-block;
+}

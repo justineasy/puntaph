@@ -1,0 +1,126 @@
+.host-hero {
+  position: relative;
+  height: min(88vh, 900px);
+  min-height: 560px;
+  display: grid;
+  overflow: hidden;
+}
+
+.host-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: hostBreathe 22s var(--ease-soft) both;
+}
+
+@keyframes hostBreathe {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .host-hero-img { animation: none; }
+}
+
+.host-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(20, 18, 16, 0.5), rgba(20, 18, 16, 0.25) 45%, rgba(20, 18, 16, 0.6));
+}
+
+.host-hero-content {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+}
+
+.host-title {
+  color: var(--ivory);
+  max-width: 14ch;
+}
+
+.host-sub {
+  margin-top: 18px;
+  color: rgba(244, 240, 232, 0.85);
+  font-size: clamp(15px, 2vw, 19px);
+}
+
+.host-ctas {
+  margin-top: 30px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.host-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.pillar-num {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--stone);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  display: inline-block;
+  min-width: 34px;
+}
+
+.pillar {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.pillar:hover {
+  transform: translateY(-3px);
+}
+
+.pillar:hover .pillar-num {
+  border-bottom-color: var(--forest);
+  color: var(--forest);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.pillar-text {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.host-quote blockquote {
+  max-width: 30ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.host-quote .quote-attr {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.host-final {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+.host-final .h1 {
+  max-width: 16ch;
+}
+
+@media (max-width: 1000px) {
+  .host-pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .host-pillars {
+    grid-template-columns: 1fr;
+  }
+}

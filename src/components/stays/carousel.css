@@ -1,0 +1,103 @@
+/* ============================================================
+   CAROUSEL — snap track, drag, small circular controls
+   ============================================================ */
+
+.carousel {
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: clamp(16px, 2vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-inline: max(var(--gutter), (100vw - 1440px) / 2 + var(--gutter));
+  padding-bottom: 8px;
+  cursor: grab;
+  outline-offset: -2px;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
+}
+
+.carousel-item {
+  flex: 0 0 clamp(300px, 30vw, 420px);
+  scroll-snap-align: start;
+  display: flex;
+}
+
+.carousel-item > * {
+  width: 100%;
+}
+
+/* ————— controls ————— */
+
+.carousel-nav {
+  position: absolute;
+  top: calc(-1 * clamp(58px, 7vw, 84px));
+  right: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--charcoal);
+  transition:
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    opacity 0.3s var(--ease),
+    transform 0.35s var(--ease-out);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--ivory);
+  transform: translateY(-1px);
+}
+
+.carousel-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+.carousel-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.carousel-btn--prev svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 860px) {
+  .carousel-nav {
+    display: none; /* touch swipe on mobile */
+  }
+
+  .carousel-item {
+    flex-basis: clamp(260px, 74vw, 320px);
+  }
+}

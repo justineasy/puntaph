@@ -1,0 +1,106 @@
+/* ============================================================
+   BACK TO TOP — the quiet escalator home
+   ============================================================ */
+
+.btt {
+  position: fixed;
+  right: clamp(18px, 3vw, 32px);
+  /* sits above the mobile nav on small screens */
+  bottom: calc(clamp(18px, 3vw, 32px) + var(--mnav-h, 0px) + env(safe-area-inset-bottom, 0px));
+  z-index: 90; /* under the navbar (100), above page content */
+
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  color: var(--charcoal);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.45s var(--ease-out),
+    background-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.btt.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.btt:hover {
+  background: var(--charcoal);
+  color: var(--ivory);
+  transform: translateY(-3px);
+}
+
+.btt:active {
+  transform: translateY(0) scale(0.94);
+}
+
+/* the progress ring */
+
+.btt-ring {
+  position: absolute;
+  inset: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+}
+
+.btt-ring circle {
+  fill: none;
+  stroke-width: 2;
+}
+
+.btt-ring-track {
+  stroke: var(--line);
+}
+
+.btt-ring-fill {
+  stroke: var(--forest);
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.15s linear; /* smooths per-frame updates */
+}
+
+.btt:hover .btt-ring-fill {
+  stroke: var(--sand);
+}
+
+/* the arrow */
+
+.btt-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.btt:hover .btt-arrow {
+  transform: translateY(-2px);
+}
+
+/* focus ring stays brand-colored */
+
+.btt:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btt,
+  .btt-ring-fill,
+  .btt-arrow {
+    transition: none;
+  }
+
+  .btt.is-visible {
+    transform: none;
+  }
+}

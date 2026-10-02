@@ -1,0 +1,719 @@
+/* ————— HERO ————— */
+
+.hero {
+  position: relative;
+  height: min(92vh, 940px);
+  /* svh = the SMALL viewport (browser bars shown). The hero then always
+     fits the visible area instead of having its bottom cut off by the
+     mobile toolbar on first paint. */
+  height: min(92svh, 940px);
+  min-height: 620px;
+  display: grid;
+  /* no overflow here — the image crop lives on .hero-media, so the
+     search suggestions popover can extend past the hero's edge */
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden; /* the image crop lives on this layer only */
+}
+
+.hero-img {
+  width: 100%;
+  height: 130%; /* taller than the crop — even the max parallax shift
+                    (0.22 × hero height, capped) can never pull the image's
+                    bottom edge above the container's bottom edge */
+  object-fit: cover;
+  /* intro zoom first, then the drift takes over at the same resting scale */
+  animation:
+    heroIn 2.2s var(--ease-out),
+    heroDrift 36s ease-in-out 2.2s infinite alternate;
+  will-change: transform;
+}
+
+@keyframes heroIn {
+  from { transform: scale(1.06); opacity: 0.6; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* slow Ken Burns — the photograph never sits still */
+
+@keyframes heroDrift {
+  from { transform: scale(1) translateX(0); }
+  to { transform: scale(1.07) translateX(-1.2%); }
+}
+
+/* scroll parallax — JS eases .hero-media down as the page scrolls away.
+   The layer holds the parallax transform; the img holds the drift. */
+
+.hero-media {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-img {
+    animation: none;
+  }
+
+  .hero-media {
+    transform: none !important;
+  }
+}
+
+/* ————— INTRO STATS ————— */
+
+.intro-stats {
+  margin-top: clamp(40px, 6vw, 72px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  max-width: 900px;
+}
+
+.intro-stat {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 18px;
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.intro-stat-num {
+  font-size: clamp(38px, 5vw, 58px);
+  line-height: 1;
+  color: var(--charcoal);
+  font-variant-numeric: tabular-nums;
+}
+
+.intro-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+@media (max-width: 700px) {
+  .intro-stats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ————— DESTINATION RIBBON ————— */
+
+/* A constant-velocity glide, not a ticker. One group of eight names measures
+   ~1190px on a wide screen and ~1000px on a phone, so the duration is tuned
+   per breakpoint to hold the same ~55px/s — the ribbon travels at one speed
+   wherever you meet it. To speed it up, lower these two numbers. */
+.marquee {
+  --marquee-duration: 21s;
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(18px, 2.5vw, 26px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ivory-warm);
+  animation: ribbonIn 0.8s var(--ease-out) 0.35s both;
+}
+
+/* names dissolve into the edges instead of being cut off mid-letter — the
+   band's hairlines stay crisp, only the names fade */
+.marquee::before,
+.marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(48px, 9vw, 150px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--ivory-warm), transparent);
+}
+
+.marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--ivory-warm), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+}
+
+/* a pointer stops the glide and inks the row in, so the pause reads as
+   intent rather than a stumble */
+@media (hover: hover) {
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee:hover .marquee-item {
+    color: var(--charcoal);
+  }
+
+  .marquee:hover .marquee-dot {
+    color: var(--forest);
+    transform: translateY(-1px) rotate(45deg);
+  }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  white-space: nowrap;
+  transition: color 0.5s var(--ease);
+}
+
+.marquee-dot {
+  margin-inline: clamp(18px, 2.5vw, 30px);
+  font-size: 7px;
+  color: var(--sand);
+  transform: translateY(-1px);
+  transition:
+    color 0.5s var(--ease),
+    transform 0.7s var(--ease-out);
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes ribbonIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* fades only — a mark that breathes, so the row still feels alive when
+   movement is unwelcome */
+@keyframes dotBreath {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .marquee {
+    --marquee-duration: 17.5s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+
+  /* no travel at all — the ribbon simply rests and reads as a list */
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee-dot {
+    animation: dotBreath 3.6s var(--ease-soft) infinite alternate;
+    animation-duration: 3.6s !important; /* the global fade blanket would flatten it */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .marquee:hover .marquee-dot {
+    transform: translateY(-1px);
+  }
+}
+
+/* ————— THE PUNTA EDIT ————— */
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(20, 18, 16, 0.42), transparent 34%),
+    radial-gradient(ellipse 70% 55% at 50% 78%, rgba(20, 18, 16, 0.4), transparent 70%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  color: var(--ivory);
+  text-shadow: 0 2px 40px rgba(20, 18, 16, 0.35);
+  max-width: 14ch;
+  font-size: clamp(48px, 10vw, 148px);
+}
+
+.hero-sub {
+  margin-top: 22px;
+  color: rgba(244, 240, 232, 0.88);
+  font-size: clamp(15px, 2vw, 19px);
+  letter-spacing: 0.04em;
+}
+
+.hero-search {
+  margin-top: clamp(32px, 4.5vw, 52px);
+  display: flex;
+  justify-content: center;
+}
+
+/* word-level stagger for "Where will you stay?" */
+.hero-title .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.55em) rotate(0.6deg);
+  animation: wordRise 1.05s var(--ease-out) forwards;
+}
+
+.hero-title .w:nth-child(2) { animation-delay: 0.09s; }
+.hero-title .w:nth-child(3) { animation-delay: 0.18s; }
+.hero-title .w:nth-child(4) { animation-delay: 0.27s; }
+
+@keyframes wordRise {
+  to { opacity: 1; transform: none; }
+}
+
+/* soft floating hint that the hero scrolls */
+.hero-scrollhint {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  z-index: 2;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: rgba(244, 240, 232, 0.22);
+}
+
+.hero-scrollhint::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -50%;
+  width: 100%;
+  height: 50%;
+  background: rgba(244, 240, 232, 0.9);
+  animation: scrollhintDrop 2.4s var(--ease-soft) infinite;
+}
+
+@keyframes scrollhintDrop {
+  0% { transform: translateY(0); }
+  70% { transform: translateY(300%); }
+  100% { transform: translateY(300%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title .w {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-scrollhint {
+    display: none;
+  }
+}
+
+/* bottom fade into ivory */
+.hero-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 120px;
+  background: linear-gradient(to top, var(--ivory), transparent);
+  z-index: 1;
+}
+
+/* ————— INTRO ————— */
+
+.intro {
+  padding-top: clamp(48px, 7vw, 96px);
+}
+
+.intro-statement {
+  max-width: 26ch;
+  margin-top: 18px;
+  color: var(--charcoal);
+}
+
+/* ————— SECTION HEADS ————— */
+
+.section-head {
+  align-items: flex-end;
+}
+
+/* ————— DESTINATION GRID ————— */
+
+.dest-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.dest-grid-a {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.dest-grid-b {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+/* ————— RAILS ————— */
+
+.rail-wrap {
+  overflow: hidden;
+}
+
+.rail {
+  display: flex;
+  gap: clamp(16px, 2vw, 24px);
+  padding-inline: max(var(--gutter), (100vw - 1440px) / 2 + var(--gutter));
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail-item {
+  flex: 0 0 clamp(250px, 24vw, 330px);
+  scroll-snap-align: start;
+}
+
+/* ————— THE PUNTA EDIT ————— */
+
+.edit-head {
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.edit-sub {
+  color: rgba(244, 240, 232, 0.6);
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.edit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 36px);
+}
+
+.edit-media {
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.edit-media .card-media {
+  aspect-ratio: 4 / 3.2;
+  border-radius: 0;
+}
+
+.edit-place {
+  margin-top: 18px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.5);
+}
+
+.edit-story .h3 {
+  margin-top: 8px;
+  color: var(--ivory);
+}
+
+.edit-dek {
+  margin-top: 10px;
+  color: rgba(244, 240, 232, 0.66);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.edit-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sand);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease), gap 0.3s var(--ease);
+}
+
+.edit-more:hover {
+  border-color: var(--sand);
+  gap: 12px;
+}
+
+.edit-more svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ————— HOST BANNER ————— */
+
+.host-banner {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 380px;
+  display: grid;
+}
+
+/* Ken Burns on hover — the banner breathes */
+
+.host-banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 7s var(--ease-soft);
+}
+
+.host-banner:hover img {
+  transform: scale(1.06);
+}
+
+.host-banner-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(20, 18, 16, 0.72) 20%, rgba(20, 18, 16, 0.15) 65%);
+}
+
+.host-banner-content {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  padding: clamp(28px, 5vw, 64px);
+  max-width: 620px;
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+
+.host-banner .h1 {
+  color: var(--ivory);
+}
+
+/* ————— QUOTE ————— */
+
+.quote {
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: clamp(72px, 10vw, 150px);
+}
+
+.quote-mark {
+  font-family: var(--font-serif);
+  font-size: 80px;
+  line-height: 0.6;
+  color: var(--sand);
+}
+
+.quote-text {
+  max-width: 24ch;
+  margin: 22px auto 0;
+}
+
+.quote-attr {
+  margin-top: 18px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ————— owner spotlight (under the homepage quote, rotates) ————— */
+
+.spot-stage {
+  display: grid;
+}
+
+.spot-slide {
+  grid-area: 1 / 1; /* stacked — the stage sizes to the tallest slide */
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease-out);
+  pointer-events: none;
+}
+
+.spot-slide.is-live {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spot-slide {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* dots — tiny ticks, the live one grows */
+
+.spot-dots {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.spot-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border-radius: 999px;
+  border: none;
+  background: var(--line-strong);
+  cursor: pointer;
+  transition:
+    width 0.4s var(--ease-out),
+    background-color 0.4s var(--ease);
+}
+
+.spot-dot:hover {
+  background: var(--stone);
+}
+
+.spot-dot.is-live {
+  width: 22px;
+  background: var(--forest);
+}
+
+.owner-spot {
+  margin: 34px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: fit-content;
+  max-width: 100%;
+  text-align: left;
+  padding: 14px 22px 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  transition:
+    border-color 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    transform 0.35s var(--ease-out);
+}
+
+.owner-spot:hover {
+  border-color: var(--forest);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.owner-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--ivory);
+  font-family: var(--font-serif);
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+
+.owner-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.owner-name {
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--charcoal);
+}
+
+.owner-sub {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.owner-go {
+  flex: none;
+  margin-left: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forest);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease);
+}
+
+.owner-spot:hover .owner-go {
+  border-bottom-color: var(--forest);
+}
+
+/* ————— RESPONSIVE ————— */
+
+@media (max-width: 1000px) {
+  .dest-grid-b {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    height: 86vh;
+    height: 86svh;
+    min-height: 540px;
+  }
+
+  .edit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dest-grid-a {
+    grid-template-columns: 1fr;
+  }
+
+  .rail-item {
+    flex-basis: clamp(230px, 62vw, 300px);
+  }
+}

@@ -1,0 +1,116 @@
+.footer {
+  background: var(--charcoal);
+  color: var(--ivory);
+  padding: clamp(56px, 8vw, 96px) 0 28px;
+  margin-top: auto;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(32px, 6vw, 96px);
+  padding-bottom: clamp(40px, 6vw, 72px);
+  border-bottom: 1px solid rgba(244, 240, 232, 0.12);
+}
+
+.footer-wordmark {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 6vw, 72px);
+  letter-spacing: 0.34em;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.footer-tag {
+  color: rgba(244, 240, 232, 0.55);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.footer-head {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 240, 232, 0.45);
+  margin-bottom: 16px;
+}
+
+.footer-cols a {
+  display: block;
+  padding: 5px 0;
+  font-size: 14px;
+  color: rgba(244, 240, 232, 0.8);
+  transition: color 0.25s var(--ease), transform 0.3s var(--ease-out);
+}
+
+.footer-cols a:hover {
+  color: var(--ivory);
+  transform: translateX(3px);
+}
+
+.footer-line {
+  font-size: 14px;
+  color: rgba(244, 240, 232, 0.6);
+  padding: 5px 0;
+  line-height: 1.6;
+}
+
+/* the giant wordmark — clipped at the page's edge, half-sunken.
+   A poster moment to end the page on. */
+
+.footer-mark {
+  overflow: hidden;
+  line-height: 0;
+}
+
+.footer-mark span {
+  display: block;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(90px, 18vw, 280px);
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  line-height: 0.86;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 240, 232, 0.22);
+  transform: translateY(18%);
+  user-select: none;
+}
+
+.footer-pay {
+  padding-top: clamp(28px, 4vw, 44px);
+  padding-bottom: 4px;
+}
+
+.footer-base {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  font-size: 12.5px;
+  color: rgba(244, 240, 232, 0.4);
+}
+
+@media (max-width: 860px) {
+  /* clear the fixed mobile nav — otherwise the base row sits behind it */
+  .footer {
+    padding-bottom: calc(28px + var(--mnav-h, 0px) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}

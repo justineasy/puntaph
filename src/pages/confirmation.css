@@ -1,0 +1,244 @@
+.conf {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-h) + 40px) 0 80px;
+}
+
+/* shown once, when this booking is what created the account */
+
+.conf-account {
+  max-width: 46ch;
+  margin: 22px auto 0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.conf-account strong {
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+/* ————— the confirmation step (nothing is saved until this is done) ————— */
+
+.conf-lede {
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.conf-review {
+  width: min(560px, 100%);
+  margin-top: 10px;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 4vw, 32px);
+  box-shadow: var(--shadow-soft);
+}
+
+.conf-review-head {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.conf-fields {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+.conf-review .demo-note {
+  width: 100%;
+}
+
+.conf-fields label {
+  display: block;
+}
+
+.conf-review .btn {
+  width: 100%;
+}
+
+.conf-hold {
+  width: 100%;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.conf-back {
+  font-size: 13px;
+  color: var(--stone);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.conf-back:hover {
+  color: var(--charcoal);
+  border-bottom-color: var(--line-strong);
+}
+
+.conf-horizon {
+  width: min(1100px, 92vw);
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.conf-line {
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+}
+
+.conf-line.is-drawn {
+  animation: confDraw 1.6s var(--ease-out) forwards;
+}
+
+.conf-line--slow.is-drawn {
+  animation-duration: 2.2s;
+  animation-delay: 0.15s;
+}
+
+@keyframes confDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+.conf-sun {
+  opacity: 0;
+  transform-origin: center;
+}
+
+.conf-sun.is-drawn {
+  animation: sunRise 1.2s var(--ease-out) 0.9s forwards;
+}
+
+@keyframes sunRise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.conf-body {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+}
+
+/* the headline arrives one breath after the horizon */
+
+.conf-title {
+  animation: confRise 0.9s var(--ease-out) 0.35s both;
+}
+
+@keyframes confRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .conf-title { animation: none; }
+}
+
+.conf-title {
+  max-width: 12ch;
+}
+
+.conf-card {
+  margin-top: 12px;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+  max-width: 560px;
+  animation: cardUp 0.9s var(--ease-out) 0.5s both;
+}
+
+@keyframes cardUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* hover lift lives on the image, not the card — the card's transform is
+   owned by the entrance animation, so they never fight */
+
+.conf-card:hover {
+  box-shadow: 0 24px 60px -24px rgba(28, 26, 22, 0.4);
+}
+
+.conf-card img {
+  width: 150px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  transition: transform 1.2s var(--ease-soft);
+}
+
+.conf-card:hover img {
+  transform: scale(1.05);
+}
+
+.conf-name {
+  font-size: 24px;
+}
+
+.conf-dates {
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.conf-total {
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.conf-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.conf-note {
+  font-size: 13px;
+  max-width: 46ch;
+}
+
+.conf-missing {
+  padding: calc(var(--nav-h) + 80px) var(--gutter);
+}
+
+@media (max-width: 640px) {
+  .conf-card {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}

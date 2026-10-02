@@ -1,0 +1,1323 @@
+/* ============================================================
+   PLATFORM PAGES — additive styles only.
+   Uses the existing tokens: colors, type scale, radii, chips,
+   sechead, buttons. Nothing here touches existing pages.
+   ============================================================ */
+
+.pl {
+  padding-top: calc(var(--nav-h) + 28px);
+  padding-bottom: 100px;
+}
+
+.pl-hero {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.pl-hero .h1 {
+  margin-top: 14px;
+  max-width: 18ch;
+}
+
+.pl-hero-sub {
+  margin-top: 16px;
+  max-width: 52ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--charcoal-soft);
+}
+
+/* ————— category chips (reuse .chip) ————— */
+
+.pl-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 8px;
+}
+
+/* ————— card grids ————— */
+
+.pl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.6vw, 32px) clamp(16px, 2vw, 26px);
+  margin-top: 26px;
+}
+
+@media (max-width: 1100px) {
+  .pl-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .pl-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ————— platform card (experience / dining / transport) ————— */
+
+.plc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--paper);
+  transition:
+    transform 0.5s var(--ease-out),
+    box-shadow 0.5s var(--ease);
+}
+
+.plc:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+.plc-media {
+  position: relative;
+  aspect-ratio: 4 / 2.6;
+  overflow: hidden;
+  background: var(--sand-soft);
+}
+
+.plc-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-soft);
+}
+
+.plc:hover .plc-media img {
+  transform: scale(1.04);
+}
+
+.plc-flag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.plc-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.plc-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 18px 18px;
+}
+
+.plc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.plc-name {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.plc-rating {
+  flex: none;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.plc-rating .muted {
+  font-weight: 400;
+}
+
+.plc-loc {
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.plc-line {
+  margin-top: 8px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--charcoal-soft);
+}
+
+.plc-meta {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--stone);
+}
+
+.plc-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.plc-price {
+  font-size: 14.5px;
+}
+
+.plc-price .price {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.plc-price small {
+  color: var(--stone);
+}
+
+/* ————— destination guide ————— */
+
+.destcover {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: clamp(300px, 40vw, 460px);
+  display: grid;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.destcover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destcover-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 13, 11, 0.72), transparent 55%);
+}
+
+.destcover-info {
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  padding: clamp(20px, 3vw, 36px);
+  color: var(--ivory);
+}
+
+.destcover-info .h1 {
+  color: var(--ivory);
+}
+
+.destcover-tag {
+  margin-top: 8px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(244, 240, 232, 0.85);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 8px 0 30px;
+}
+
+.fact {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  padding: 16px 18px;
+}
+
+.fact dt {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.fact dd {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--charcoal-soft);
+}
+
+@media (max-width: 860px) {
+  .facts {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ————— my trip timeline ————— */
+
+.tripboard {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  padding: clamp(20px, 3vw, 32px);
+  margin-top: 26px;
+}
+
+.tripboard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.tripboard input.tripname {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 500;
+  border: 0;
+  border-bottom: 1px dashed var(--line-strong);
+  background: transparent;
+  padding: 4px 0;
+  width: min(420px, 100%);
+  color: var(--charcoal);
+}
+
+.tripboard input.tripname:focus {
+  outline: none;
+  border-bottom-color: var(--charcoal);
+}
+
+.tripdays {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.daycol {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.daycol-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.daycol-num {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--forest);
+}
+
+.daycol-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.ti {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ti:last-child {
+  border-bottom: 0;
+}
+
+.ti-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--sand-soft);
+}
+
+.ti-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ti-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ti-kind {
+  margin-left: 8px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: rgba(62, 79, 60, 0.1);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.ti-detail {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--stone);
+}
+
+.ti-note {
+  margin-top: 6px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px dashed var(--line-strong);
+  background: transparent;
+  font-size: 12.5px;
+  padding: 3px 0;
+  color: var(--charcoal-soft);
+}
+
+.ti-note:focus {
+  outline: none;
+  border-bottom-color: var(--charcoal);
+}
+
+.ti-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ti-select {
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: var(--paper);
+  color: var(--charcoal);
+}
+
+.ti-remove {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  color: var(--stone);
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.ti-remove:hover {
+  background: rgba(28, 26, 22, 0.06);
+  color: var(--danger);
+}
+
+.ti-remove svg {
+  width: 13px;
+  height: 13px;
+}
+
+.tripempty {
+  text-align: center;
+  padding: 40px 0 20px;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+/* ————— map page ————— */
+
+.mapwrap {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 30%, rgba(62, 79, 60, 0.05), transparent),
+    radial-gradient(ellipse 50% 40% at 70% 65%, rgba(216, 201, 174, 0.12), transparent),
+    var(--ivory-warm);
+  height: clamp(480px, 68vh, 760px);
+  margin-top: 22px;
+}
+
+.mapviewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+}
+
+.mapviewport.is-dragging {
+  cursor: grabbing;
+}
+
+.mapcanvas {
+  position: absolute;
+  width: 2400px;
+  height: 1400px;
+  transform-origin: 0 0;
+}
+
+.mapgraticule {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(28, 26, 22, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 26, 22, 0.045) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.mappin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.mappin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px 999px 999px 2px;
+  transform: rotate(45deg);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 10px -3px rgba(28, 26, 22, 0.5);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.mappin:hover .mappin-dot {
+  transform: rotate(45deg) scale(1.18);
+}
+
+.mappin-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--charcoal);
+  background: rgba(250, 247, 241, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease);
+  pointer-events: none;
+}
+
+.mappin:hover .mappin-label,
+.mappin.is-selected .mappin-label {
+  opacity: 1;
+}
+
+.map-controls {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: grid;
+  gap: 8px;
+}
+
+.map-zoombtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--charcoal);
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-soft);
+  transition: background-color 0.25s var(--ease);
+}
+
+.map-zoombtn:hover {
+  background: var(--ivory-warm);
+}
+
+.map-detail {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 5;
+  width: min(320px, calc(100% - 28px));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 16px 18px;
+}
+
+.map-detail .plc-loc {
+  margin-top: 2px;
+}
+
+.map-detail-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.maplegend {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: min(560px, calc(100% - 120px));
+}
+
+.mapcat {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(250, 247, 241, 0.94);
+  color: var(--charcoal-soft);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.25s var(--ease);
+}
+
+.mapcat.is-active {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--ivory);
+}
+
+/* pin colors per category — token-adjacent hues only */
+.mappin--stay .mappin-dot { background: var(--forest); }
+.mappin--experience .mappin-dot { background: #7a6a4f; }
+.mappin--restaurant .mappin-dot { background: var(--danger); }
+.mappin--attraction .mappin-dot { background: #4f6d7a; }
+.mappin--transport .mappin-dot { background: var(--stone); }
+
+/* ————— eSIM ————— */
+
+.esim-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 1100px) {
+  .esim-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .esim-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* stacked, the cards can hug their content instead of holding a row */
+  .esim-card {
+    min-height: 0;
+    padding: 18px;
+  }
+}
+
+/* A plan is a small ledger: the figures stack on the left so they line up
+   card to card, and the price block is pinned to the card's base so every
+   price sits on one line. Height is capped — the grid should read as one
+   band, not four billboards. */
+.esim-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: var(--paper);
+  padding: 20px;
+  min-height: 208px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  transition:
+    box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease-out),
+    border-color 0.3s var(--ease),
+    background-color 0.4s var(--ease);
+}
+
+.esim-card:hover {
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.esim-card.is-selected {
+  border-color: var(--forest);
+  background-color: rgba(62, 79, 60, 0.05);
+  box-shadow: 0 0 0 1px var(--forest), var(--shadow-soft);
+}
+
+/* the tag shares the trip-length line, so it never adds a row and no card
+   ends up taller than its neighbours */
+.esim-days-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* the one earned tag on the grid — cheapest data in the set */
+.esim-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: rgba(62, 79, 60, 0.1);
+  border-radius: 999px;
+  padding: 4px 9px;
+}
+
+/* ownership badge — sits at the card's base, quiet but unmistakable */
+
+.esim-owned-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: rgba(62, 79, 60, 0.1);
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.esim-owned-badge svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* post-purchase banner — tells you exactly what happened and where */
+
+.esim-success {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid rgba(62, 79, 60, 0.35);
+  border-left: 3px solid var(--forest);
+  border-radius: var(--radius);
+  background: rgba(62, 79, 60, 0.06);
+  padding: 14px 18px;
+  font-size: 14px;
+  animation: esimIn 0.45s var(--ease-out);
+}
+
+.esim-success svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--forest);
+}
+
+@keyframes esimIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.esim-count {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--stone);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esim-success,
+  .esim-price svg {
+    animation: none;
+  }
+}
+
+.esim-gb {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.esim-gb small {
+  font-size: 15px;
+  color: var(--stone);
+  font-weight: 400;
+}
+
+.esim-days {
+  font-size: 13px;
+  color: var(--charcoal-soft);
+}
+
+.esim-net {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--stone);
+}
+
+.esim-price {
+  margin-top: auto; /* every price lands on the same line across the grid */
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* the selected mark: sized here, because an inline SVG with no width or
+   height falls back to 300×150 and takes the whole card with it */
+.esim-price svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  color: var(--forest);
+  animation: esimTick 0.22s var(--ease-out);
+}
+
+.esim-price small {
+  font-weight: 400;
+  color: var(--stone);
+  font-size: 12px;
+}
+
+/* what a day costs, and what the data costs — the two figures that decide */
+.esim-value {
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: var(--stone);
+}
+
+@keyframes esimTick {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+.esim-steps {
+  counter-reset: step;
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--ivory-warm);
+  padding: clamp(20px, 3vw, 30px);
+  display: grid;
+  gap: 14px;
+}
+
+.esim-step {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 14px;
+  align-items: start;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--charcoal-soft);
+}
+
+.esim-step::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-serif);
+  font-size: 17px;
+  color: var(--forest);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+}
+
+.esim-owned {
+  margin-top: 8px;
+  display: grid;
+  gap: 10px;
+}
+
+.esim-sim {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  transition: border-color 0.4s var(--ease), opacity 0.4s var(--ease);
+}
+
+.esim-sim.is-active {
+  border-color: rgba(63, 174, 106, 0.5);
+  background: linear-gradient(180deg, var(--paper), rgba(63, 174, 106, 0.05));
+}
+
+.esim-sim.is-refunded {
+  opacity: 0.55;
+}
+
+.esim-sim.is-refunded .esim-qr {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+/* ————— buy row — the demo notice takes its own line ————— */
+
+.esim-buy {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.esim-buy .demo-note {
+  flex: 1 1 100%;
+}
+
+/* ————— buying an eSIM needs an account ————— */
+
+.esim-gate {
+  margin-top: 16px;
+  max-width: 460px;
+  display: grid;
+  gap: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-soft);
+  animation: esimIn 0.35s var(--ease-out);
+}
+
+.esim-gate-head {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.esim-gate-sub {
+  margin-top: -6px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.esim-gate-field {
+  display: block;
+}
+
+.esim-gate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+/* ————— refunded archive — receipts, folded away ————— */
+
+.esim-archive {
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.esim-archive > summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--stone);
+  transition: color 0.25s var(--ease);
+}
+
+.esim-archive > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* the disclosure chevron — points right when closed, down when open */
+.esim-archive > summary::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.4px solid currentColor;
+  border-bottom: 1.4px solid currentColor;
+  transform: rotate(-45deg) translate(-1px, -1px);
+  transition: transform 0.25s var(--ease);
+}
+
+.esim-archive[open] > summary::before {
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.esim-archive > summary:hover {
+  color: var(--charcoal);
+}
+
+.esim-owned--archive {
+  margin-top: 14px;
+}
+
+/* compact and recessed — an archived row carries no QR to scan */
+.esim-sim--archived {
+  padding: 12px 16px;
+  background: var(--ivory-warm);
+  opacity: 0.72;
+}
+
+.esim-archived-meta {
+  display: block;
+  font-size: 12.5px;
+  margin-top: 3px;
+}
+
+/* status chips — color = state, same hue family as the legend dots */
+
+.esim-status {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.esim-status--ready {
+  color: var(--stone);
+  background: rgba(28, 26, 22, 0.06);
+}
+
+.esim-status--active {
+  color: #227a48;
+  background: rgba(63, 174, 106, 0.14);
+}
+
+.esim-status--refunded {
+  color: #8a5a20;
+  background: rgba(160, 122, 40, 0.12);
+  text-decoration: line-through;
+}
+
+.esim-side {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.esim-actions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+/* inline refund confirmation — mirrors the trip-cancel pattern */
+
+.esim-confirm {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 9px 14px;
+  border: 1px solid rgba(156, 74, 56, 0.35);
+  border-left: 3px solid var(--danger);
+  border-radius: var(--radius);
+  background: rgba(156, 74, 56, 0.05);
+  animation: esimIn 0.3s var(--ease-out);
+}
+
+.esim-confirm-q {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.esim-confirm-btns {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.esim-act--danger {
+  color: var(--ivory);
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.esim-act--danger:hover {
+  border-color: #7e3b2c;
+  background: #7e3b2c;
+  color: var(--ivory);
+}
+
+/* usage + expiry — the live part of an active subscription */
+
+.esim-usage {
+  flex-basis: 100%;
+  display: grid;
+  gap: 7px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.esim-usage-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12.5px;
+  color: var(--charcoal-soft);
+}
+
+.esim-usage-left.is-ok {
+  color: var(--stone);
+}
+
+.esim-usage-left.is-soon {
+  color: #8a5a20;
+  font-weight: 600;
+}
+
+.esim-usage-left.is-out {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.esim-usage-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ivory-warm);
+  overflow: hidden;
+}
+
+.esim-usage-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--forest);
+  transition: width 1.2s var(--ease-out);
+}
+
+/* running low — the bar itself starts talking */
+
+.esim-usage.is-urgent .esim-usage-bar span {
+  background: linear-gradient(90deg, #c9a24b 0%, var(--danger) 100%);
+}
+
+.esim-act {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stone);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 7px 13px;
+  transition: all 0.25s var(--ease);
+}
+
+.esim-act:hover {
+  border-color: var(--charcoal);
+  color: var(--charcoal);
+}
+
+.esim-act--go {
+  color: var(--ivory);
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.esim-act--go:hover {
+  background: var(--forest-deep);
+  border-color: var(--forest-deep);
+  color: var(--ivory);
+}
+
+/* legend — the three states, named once so the chips never need explaining */
+
+.esim-legend {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--stone);
+}
+
+.esim-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.esim-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.esim-dot--ready {
+  background: var(--stone-light);
+}
+
+.esim-dot--active {
+  background: #3fae6a;
+}
+
+.esim-dot--refunded {
+  background: #c9a24b;
+}
+
+.esim-qr {
+  width: 84px;
+  height: 84px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-conic-gradient(var(--charcoal) 0% 25%, transparent 0% 50%);
+  background-size: 10px 10px;
+  opacity: 0.85;
+}
+
+/* ————— connect buttons (add to trip / wishlist on new cards) ————— */
+
+.plc-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* focus rings on cards — keyboard users get the same affordance as pointers */
+
+.plc:focus-within {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+.plc a:focus-visible,
+.plc button:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.plc-addtrip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forest);
+  border: 1px solid rgba(62, 79, 60, 0.35);
+  border-radius: 999px;
+  padding: 7px 13px;
+  transition: all 0.3s var(--ease);
+}
+
+/* icons inside the pill keep the .btn convention: sized, drift forward on hover */
+
+.plc-addtrip svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.plc-addtrip:hover svg {
+  transform: translateX(3px);
+}
+
+/* the whole card is the trigger — link CTAs answer from anywhere on the card
+   (scoped to anchors so the add-to-trip buttons keep their own .is-in state) */
+
+.plc:hover a.plc-addtrip {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--ivory);
+}
+
+.plc:hover a.plc-addtrip svg {
+  transform: translateX(3px);
+}
+
+.plc-addtrip:hover {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--ivory);
+}
+
+.plc-addtrip.is-in {
+  background: rgba(62, 79, 60, 0.1);
+  border-color: transparent;
+  color: var(--forest);
+  cursor: default;
+}
+
+/* ————— wishlist tabs (existing page extension) ————— */
+
+.wl-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 24px;
+  flex-wrap: wrap;
+}
+
+/* ————— profile additions ————— */
+
+.profile-section {
+  margin-top: 26px;
+}
+
+.profile-section .h3 {
+  margin-bottom: 12px;
+}

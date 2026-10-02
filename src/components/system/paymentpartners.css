@@ -1,0 +1,147 @@
+/* ————— payment partners trust strip ————— */
+
+.pay-strip-head {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.pay-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+}
+
+.pay-tile {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 48px;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px -4px rgba(28, 26, 22, 0.35);
+  transition:
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease);
+}
+
+.pay-tile svg {
+  width: 54px;
+  height: 22px;
+  display: block;
+}
+
+.pay-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -6px rgba(28, 26, 22, 0.45);
+}
+
+.pay-strip--compact .pay-tile {
+  width: 62px;
+  height: 40px;
+}
+
+.pay-strip--compact .pay-tile svg {
+  width: 46px;
+  height: 18px;
+}
+
+/* on the dark footer the heading reads muted ivory */
+
+.footer .pay-strip-head {
+  color: rgba(244, 240, 232, 0.45);
+}
+
+/* ————— payments FAQ ————— */
+
+.pay-faq {
+  margin-top: 18px;
+}
+
+.pay-faq-toggle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--stone);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 2px;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.pay-faq-toggle:hover {
+  color: var(--charcoal);
+  border-color: var(--charcoal);
+}
+
+.pay-faq-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 0;
+  animation: payFaqIn 0.4s var(--ease-out);
+}
+
+@keyframes payFaqIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pay-faq-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.pay-faq-row dt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+
+.pay-faq-row dd {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--charcoal-soft);
+}
+
+.pay-faq-note {
+  grid-column: 1 / -1;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--stone);
+}
+
+@media (max-width: 560px) {
+  .pay-faq-row {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pay-faq-list {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pay-tile {
+    transition: none;
+  }
+
+  .pay-tile:hover {
+    transform: none;
+  }
+}

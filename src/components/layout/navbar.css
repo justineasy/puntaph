@@ -1,0 +1,353 @@
+.nav {
+  position: fixed;
+  top: var(--bar-h, 0px); /* docks below the member bar */
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 68px; /* the bar adds itself via --nav-h offsets */
+  /* landscape notch — keeps the logo and actions out of the sensor housing */
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  transition:
+    background-color 0.45s var(--ease),
+    box-shadow 0.45s var(--ease),
+    border-color 0.45s var(--ease),
+    transform 0.5s var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+
+/* reading mode — scrolled down, the bar tucks away; scroll up and it's back */
+
+.nav.is-hidden {
+  transform: translateY(calc(-100% - var(--bar-h, 0px) - 4px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav {
+    transition: none;
+  }
+
+  .nav.is-hidden {
+    transform: none;
+  }
+}
+
+.nav.is-scrolled {
+  background: rgba(250, 247, 241, 0.86);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: var(--line);
+}
+
+.nav.is-over-hero {
+  color: var(--ivory);
+}
+
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.nav-logo {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 9px 14px;
+  border-radius: 999px;
+  opacity: 0.85;
+  transition: opacity 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+/* underline draws in from the left — a quiet wayfinding cue */
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav-link.is-active {
+  opacity: 1;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  background: rgba(28, 26, 22, 0.06);
+}
+
+.nav.is-over-hero .nav-link:hover {
+  background: rgba(244, 240, 232, 0.14);
+}
+
+.nav-link.is-active {
+  opacity: 1;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-host {
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 9px 13px;
+  border-radius: 999px;
+  transition: background-color 0.25s var(--ease);
+}
+
+.nav-host:hover {
+  background: rgba(28, 26, 22, 0.06);
+}
+
+.nav.is-over-hero .nav-host:hover {
+  background: rgba(244, 240, 232, 0.14);
+}
+
+.nav-heart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  transition: background-color 0.25s var(--ease);
+}
+
+.nav-heart svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-heart:hover {
+  background: rgba(28, 26, 22, 0.06);
+}
+
+.nav.is-over-hero .nav-heart:hover {
+  background: rgba(244, 240, 232, 0.14);
+}
+
+/* eSIM indicator — a quiet SIM chip, only present once you own one */
+
+.nav-sim {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  color: var(--forest);
+  transition: background-color 0.25s var(--ease);
+}
+
+.nav-sim svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-sim:hover {
+  background: rgba(62, 79, 60, 0.1);
+}
+
+.nav.is-over-hero .nav-sim:hover {
+  background: rgba(244, 240, 232, 0.14);
+}
+
+/* green pulse — you're actively subscribed.
+   The dot escalates as the plan runs out: green → amber (<48h) → red (<24h). */
+
+.nav-sim-dot {
+  position: absolute;
+  bottom: 6px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #3fae6a;
+  box-shadow: 0 0 0 2px var(--paper);
+  transition: background-color 0.5s var(--ease);
+}
+
+.nav-sim-dot.is-soon {
+  background: #d9a13b;
+}
+
+.nav-sim-dot.is-out {
+  background: var(--danger);
+}
+
+.nav.is-over-hero .nav-sim-dot {
+  box-shadow: 0 0 0 2px rgba(20, 18, 16, 0.9);
+}
+
+.nav-badge {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 600;
+  background: var(--forest);
+  color: var(--ivory);
+  border-radius: 999px;
+}
+
+.nav-trips {
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 9px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.nav.is-over-hero .nav-trips {
+  border-color: rgba(244, 240, 232, 0.4);
+}
+
+.nav-trips:hover {
+  border-color: var(--charcoal);
+}
+
+.nav.is-over-hero .nav-trips:hover {
+  border-color: rgba(244, 240, 232, 0.85);
+}
+
+.nav-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--charcoal);
+  color: var(--ivory);
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.nav.is-over-hero .nav-avatar {
+  background: rgba(244, 240, 232, 0.92);
+  color: var(--charcoal);
+}
+
+.nav-avatar:hover {
+  transform: scale(1.06);
+}
+
+/* ————— Discover dropdown (additive) ————— */
+
+.discover-root {
+  position: relative;
+  display: inline-flex;
+}
+
+.discover-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.discover-btn::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.4px solid currentColor;
+  border-bottom: 1.4px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  opacity: 0.6;
+  transition: transform 0.3s var(--ease);
+}
+
+.discover-btn.is-open::after {
+  transform: rotate(225deg) translateY(-1px);
+}
+
+.discover-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 8px;
+  z-index: 120;
+  animation: discoverIn 0.3s var(--ease-out);
+  display: grid;
+}
+
+@keyframes discoverIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to { opacity: 1; transform: translateX(-50%); }
+}
+
+.discover-item {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--charcoal);
+  transition: background-color 0.2s var(--ease);
+}
+
+.discover-item:hover {
+  background: rgba(28, 26, 22, 0.05);
+}
+
+.discover-item--cta {
+  margin-top: 4px;
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 10px 10px;
+  color: var(--forest);
+  font-weight: 600;
+}
+
+.nav.is-over-hero .discover-menu {
+  background: rgba(250, 247, 241, 0.98);
+}
+
+@media (max-width: 860px) {
+  .nav-links,
+  .nav-host,
+  .nav-trips,
+  .discover-root {
+    display: none;
+  }
+}
