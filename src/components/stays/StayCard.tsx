@@ -10,11 +10,15 @@ import './staycard.css'
 
 /**
  * `sizes` is context-aware: the default matches the 3-col grids that go
- * 2-col ≤1100px (wishlist/destinations) and 1-col ≤860px. Rails pass an
- * exact pixel width so the browser never over-fetches for the narrow card.
+ * 2-col ≤1100px (wishlist/destinations) and 1-col ≤860px. Rails pass the
+ * card's exact flex-basis (`clamp(230px, 62vw, 300px)` ≤860px,
+ * `clamp(250px, 24vw, 330px)` above) so the browser never over-fetches
+ * for the narrow card — measured against the rendered slot, the pick is
+ * always the same pixels on screen, just fewer bytes over the wire.
  */
 const GRID_SIZES = '(max-width: 860px) 92vw, (max-width: 1100px) 45vw, 31vw'
-export const RAIL_SIZES = '(max-width: 860px) 300px, 330px'
+export const RAIL_SIZES =
+  '(max-width: 860px) clamp(230px, 62vw, 300px), clamp(250px, 24vw, 330px)'
 
 export default function StayCard({
   stay,

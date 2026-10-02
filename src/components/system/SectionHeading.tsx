@@ -12,6 +12,7 @@ export function SectionHeading({
   action,
   light = false,
   id,
+  level = 2,
 }: {
   eyebrow?: string
   title: ReactNode
@@ -19,7 +20,11 @@ export function SectionHeading({
   action?: ReactNode
   light?: boolean
   id?: string
+  /** Heading level. Pages pass 1 when this is their only top heading;
+      the rendered classes (and therefore pixels) are identical. */
+  level?: 1 | 2
 }) {
+  const Heading = level === 1 ? 'h1' : 'h2'
   return (
     <div className={`sechead${light ? ' sechead--light' : ''}`}>
       <div className="sechead-text">
@@ -29,7 +34,7 @@ export function SectionHeading({
           </Reveal>
         )}
         <Reveal delay={80}>
-          <h2 className="h1 sechead-title" id={id}>{title}</h2>
+          <Heading className="h1 sechead-title" id={id}>{title}</Heading>
         </Reveal>
         {dek && (
           <Reveal delay={160}>

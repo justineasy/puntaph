@@ -27,8 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 )
 
 // The branded boot loader lives in index.html and is painted before the
-// bundle exists, so it can never flash an unstyled blank. React clears
-// it on mount; we sweep up the node just in case a browser kept it.
-requestAnimationFrame(() => {
-  document.querySelector('.boot')?.remove()
-})
+// bundle exists. Its removal is owned by the inline watchdog there, which
+// waits until React has genuinely committed — if this render throws, the
+// loader stays up and the watchdog swaps in its retry state instead of
+// the page going blank.

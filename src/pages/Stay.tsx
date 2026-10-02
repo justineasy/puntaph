@@ -74,7 +74,10 @@ export default function Stay() {
                   decoding="async"
                   src={roomImage(stay.id, r)}
                   srcSet={srcSetFor(roomImage(stay.id, r))}
-                  sizes="(max-width: 900px) 50vw, 33vw"
+                  /* exact slot widths: ≤860px the side thumbs are 2-up inside
+                     .shell, above they're the 1fr column of the 2.1fr/1fr
+                     gallery — 50vw/33vw over-fetched one full candidate step */
+                  sizes="(max-width: 860px) calc((100vw - clamp(40px, 10vw, 128px) - 14px) / 2), calc((min(100vw, 1440px) - clamp(40px, 10vw, 128px) - 14px) / 3.1)"
                   alt={roomLabel(r)}
                   loading="lazy"
                 />

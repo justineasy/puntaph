@@ -225,6 +225,7 @@ export default function EsimPage() {
     <div className="pl shell">
       <header className="pl-hero">
         <SectionHeading
+          level={1}
           eyebrow="Connected, from touchdown"
           title={
             <>

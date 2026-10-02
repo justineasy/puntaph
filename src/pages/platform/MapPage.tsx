@@ -66,6 +66,7 @@ export default function MapPage() {
     <div className="pl shell">
       <header className="pl-hero">
         <SectionHeading
+          level={1}
           eyebrow="The archipelago"
           title={
             <>

@@ -10,18 +10,23 @@ export default function DestinationCard({
   dest,
   size = 'md',
   delay = 0,
+  sizes: sizesOverride,
 }: {
   dest: Destination
   size?: 'md' | 'lg'
   delay?: number
+  /** Layout-specific override — grids whose columns don't match the md/lg
+      presets pass their measured slot width (see Home's dest-grid-b). */
+  sizes?: string
 }) {
   const tiltRef = useTilt<HTMLAnchorElement>(3)
   // lg = 2-col home grid (≈45vw); md = 3/4-col grids (31vw) that drop to
   // 2-col ≤1100px and 1-col ≤860px — each branch upper-bounds the real width.
   const sizes =
-    size === 'lg'
+    sizesOverride ??
+    (size === 'lg'
       ? '(max-width: 860px) 92vw, 45vw'
-      : '(max-width: 860px) 92vw, (max-width: 1100px) 45vw, 31vw'
+      : '(max-width: 860px) 92vw, (max-width: 1100px) 45vw, 31vw')
 
   return (
     <Reveal delay={delay} variant="img">

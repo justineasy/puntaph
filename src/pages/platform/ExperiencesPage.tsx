@@ -37,6 +37,7 @@ export default function ExperiencesPage() {
     <div className="pl shell">
       <header className="pl-hero">
         <SectionHeading
+          level={1}
           eyebrow="Beyond the stay"
           title={
             <>

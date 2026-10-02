@@ -222,9 +222,9 @@ export default function AddProperty() {
                 <div className="ap-count">
                   <span className="field-label">Minimum nights</span>
                   <div className="sb-stepper">
-                    <button type="button" onClick={() => set('minNights', Math.max(1, form.minNights - 1))}>−</button>
+                    <button type="button" aria-label="Fewer nights" onClick={() => set('minNights', Math.max(1, form.minNights - 1))}>−</button>
                     <span>{form.minNights}</span>
-                    <button type="button" onClick={() => set('minNights', Math.min(14, form.minNights + 1))}>+</button>
+                    <button type="button" aria-label="More nights" onClick={() => set('minNights', Math.min(14, form.minNights + 1))}>+</button>
                   </div>
                 </div>
               </section>
@@ -279,7 +279,12 @@ export default function AddProperty() {
           <aside className="ap-side" aria-label="Live preview">
             <p className="field-label">Live preview</p>
             <div className="ap-preview">
-              <img decoding="async" src={destImage(form.destination.toLowerCase(), 800, 600)} alt="" />
+              <img
+                decoding="async"
+                loading="lazy"
+                src={destImage(form.destination.toLowerCase(), 800, 600)}
+                alt={`Cover photo preview for ${form.name || 'your new listing'}`}
+              />
               <div className="ap-preview-body">
                 <div className="ap-preview-top">
                   <p className="ap-preview-name">{form.name || 'Your place’s name'}</p>

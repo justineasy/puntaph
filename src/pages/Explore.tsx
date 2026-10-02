@@ -238,7 +238,10 @@ export default function Explore() {
             <img
               src={heroImage(1400, 1750)}
               srcSet={srcSetFor(heroImage(1400, 1750), [960, 1280, 1920])}
-              sizes="100vw"
+              /* exact slot: the 1.08fr column of .exhero-grid (full shell
+                 ≤860px where the grid goes 1-col) — "100vw" told the browser
+                 the image was viewport-wide when it's ~46% of it */
+              sizes="(max-width: 860px) calc(min(1440px, 100vw) - clamp(40px, 10vw, 128px)), calc((min(1440px, 100vw) - clamp(40px, 10vw, 128px) - clamp(28px, 5vw, 72px)) * 0.54)"
               alt="Morning light over a Philippine coastline"
               decoding="async"
             />

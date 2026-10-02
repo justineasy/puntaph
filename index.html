@@ -8,11 +8,23 @@
     <meta property="og:title" content="PUNTA — Where will you stay?" />
     <meta property="og:description" content="Beautiful places. Meaningful escapes. Discover stays across the Philippines: Palawan, Siargao, Batangas, Baguio, Cebu, La Union, Boracay and Tagaytay." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://puntaph.vercel.app/" />
+    <meta property="og:site_name" content="PUNTA" />
+    <meta property="og:image" content="https://puntaph.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="El Nido bay, Palawan — the PUNTA logo over a Philippine coastline" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="PUNTA — Where will you stay?" />
     <meta name="twitter:description" content="Beautiful places. Meaningful escapes. Discover stays across the Philippines." />
+    <meta name="twitter:image" content="https://puntaph.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt" content="El Nido bay, Palawan — the PUNTA logo over a Philippine coastline" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://puntaph.vercel.app/" />
     <title>PUNTA — Where will you stay?</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- images are fetched no-cors, so the preconnect must NOT be crossorigin
@@ -34,10 +46,38 @@
       imagesizes="100vw"
       fetchpriority="high"
     />
+    <!-- the two faces the first paint needs — preloaded in parallel with
+         the stylesheet above instead of discovered after it parses -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+    />
+    <!-- The Google Fonts stylesheet is the one render-blocking request we
+         can drop: load it async (print → all) and text still paints in the
+         same fallback fonts it always does before the swap. The two face
+         files above are preloaded in parallel with the HTML. -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <style>
       /* ============================================================
          CRITICAL BOOT LOADER — deliberately inline.
@@ -274,9 +314,84 @@
           background: linear-gradient(90deg, transparent, #d8c9ae, transparent);
         }
       }
+
+      /* ————— load-failure state —————
+         Painted ONLY by the watchdog below when the bundle can't boot.
+         A healthy load never matches these selectors, so the loader's
+         normal look is untouched. Same dark canvas, same serif, same
+         pill button language as the rest of the site. */
+      .boot-fail-msg {
+        max-width: 320px;
+        margin: 0;
+        font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.55;
+        text-align: center;
+        color: rgba(244, 240, 232, 0.72);
+      }
+
+      .boot-fail-btn {
+        min-height: 44px;
+        padding: 11px 28px;
+        border: 0;
+        border-radius: 999px;
+        background: #f4f0e8;
+        color: #1c1a16;
+        font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .boot-fail-btn:hover { background: #ffffff; }
+      .boot-fail-btn:focus-visible { outline: 2px solid #d8c9ae; outline-offset: 3px; }
     </style>
+
+    <!-- Structured data crawlers can read before any JS runs. The build
+         (scripts/prerender.mjs) appends an ItemList of every stay to
+         this graph and writes per-stay JSON-LD into /stay/*.html. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://puntaph.vercel.app/#organization",
+            "name": "PUNTA",
+            "url": "https://puntaph.vercel.app/",
+            "logo": "https://puntaph.vercel.app/favicon.svg",
+            "description": "PUNTA — Beautiful places. Meaningful escapes. Discover stays across the Philippines: Palawan, Siargao, Batangas, Baguio, Cebu, La Union, Boracay and Tagaytay."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://puntaph.vercel.app/#website",
+            "name": "PUNTA",
+            "url": "https://puntaph.vercel.app/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://puntaph.vercel.app/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://puntaph.vercel.app/#/explore?where={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
+    <!-- Static prerender — empty in dev; scripts/prerender.mjs fills it
+         in dist/ with the home page's real content (headings, destination
+         links, featured stays) so crawlers and link previews read the
+         site's content from the first byte. It sits UNDER the loader
+         (fixed, zero layout height) and is removed by the watchdog the
+         moment React commits — visitors never see it. -->
+    <div id="prerender" style="position: fixed; inset: 0; overflow: hidden"></div>
     <div id="root">
       <!-- Replaced the moment React mounts. Every hard refresh gets the
            brand mark instead of a blank screen. -->
@@ -293,6 +408,129 @@
         <span class="boot-sr">Loading PUNTA</span>
       </div>
     </div>
+    <script>
+      /* ————— boot watchdog —————
+         Two jobs, both invisible on a healthy load:
+
+         1. DEEP LINKS — clean paths (/stay/x, /explore…) arrive via the
+            SPA fallback; map pathname (+query) onto the hash router
+            before it boots so the right page renders. Hash visits
+            (#/…) and asset requests are left alone.
+
+         2. NO ETERNAL LOADER — if the bundle fails to download, throws
+            while evaluating, or React never commits within 12s, swap
+            the loader for a friendly retry state. A committed React
+            tree flips `booted`, after which every branch here is a
+            no-op. */
+      (function () {
+        try {
+          if (!location.hash) {
+            var p = location.pathname.replace(/\/+$/, '');
+            if (p && p !== '/' && p.indexOf('/assets') !== 0 && !/\.[a-z0-9]+$/i.test(p)) {
+              history.replaceState(null, '', '/' + location.search);
+              location.hash = p + location.search;
+            }
+          }
+        } catch (e) {
+          /* history/URL quirks — fall back to whatever hash exists */
+        }
+
+        var booted = false;
+
+        function fail() {
+          if (booted) return;
+          var root = document.getElementById('root');
+          if (!root) return;
+          var boot = root.querySelector('.boot');
+          if (!boot) {
+            if (root.querySelector('.errbound, #entry-root, .site')) return;
+            boot = document.createElement('div');
+            boot.className = 'boot';
+            boot.setAttribute('role', 'status');
+            root.appendChild(boot);
+          }
+          if (boot.getAttribute('data-fail')) return;
+          boot.setAttribute('data-fail', '1');
+          var sr = boot.querySelector('.boot-sr');
+          if (sr) sr.textContent = 'PUNTA could not load.';
+          var msg = document.createElement('p');
+          msg.className = 'boot-fail-msg';
+          msg.textContent = 'We couldn’t load PUNTA. Check your connection and try again.';
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'boot-fail-btn';
+          btn.textContent = 'Try again';
+          btn.addEventListener('click', function () {
+            location.reload();
+          });
+          boot.appendChild(msg);
+          boot.appendChild(btn);
+        }
+
+        window.addEventListener(
+          'error',
+          function (e) {
+            var t = e.target;
+            if (t && t !== window && t.tagName) {
+              // resource error: only the bundle itself can stop the boot
+              if (t.tagName === 'SCRIPT' && !booted) fail();
+              return;
+            }
+            if (!booted) {
+              fail();
+              return;
+            }
+            // fatal post-boot error: if it emptied the root, one guarded reload
+            setTimeout(function () {
+              var root = document.getElementById('root');
+              if (!root || root.children.length > 0) return;
+              try {
+                if (sessionStorage.getItem('punta.reload') === '1') {
+                  booted = false;
+                  fail();
+                  return;
+                }
+                sessionStorage.setItem('punta.reload', '1');
+              } catch (err) {
+                return;
+              }
+              location.reload();
+            }, 400);
+          },
+          true
+        );
+
+        window.addEventListener('unhandledrejection', function () {
+          if (!booted) fail();
+        });
+
+        setTimeout(function () {
+          if (!booted) fail();
+        }, 12000);
+
+        // React has committed the moment #root holds anything that isn't
+        // the loader — then sweep the loader and the static prerender.
+        var iv = setInterval(function () {
+          var root = document.getElementById('root');
+          if (!root) return;
+          var kids = root.children;
+          var extra = false;
+          for (var i = 0; i < kids.length; i++) {
+            if (!kids[i].classList.contains('boot')) {
+              extra = true;
+              break;
+            }
+          }
+          if (!extra) return;
+          booted = true;
+          clearInterval(iv);
+          var boot = root.querySelector('.boot');
+          if (boot) boot.remove();
+          var pre = document.getElementById('prerender');
+          if (pre) pre.remove();
+        }, 100);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

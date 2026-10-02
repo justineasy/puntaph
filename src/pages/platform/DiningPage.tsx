@@ -32,6 +32,7 @@ export default function DiningPage() {
     <div className="pl shell">
       <header className="pl-hero">
         <SectionHeading
+          level={1}
           eyebrow="Dining"
           title={
             <>

@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Small, salty, and right on the sand. The Boatshed in Bauan, Batangas — ₱4,200/night, rated 4.44 from 87 reviews. Book on PUNTA." />
+    <meta name="theme-color" content="#141210" />
+    <meta property="og:title" content="The Boatshed — PUNTA" />
+    <meta property="og:description" content="Small, salty, and right on the sand. Bauan, Batangas" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://puntaph.vercel.app/stay/the-boatshed" />
+    <meta property="og:site_name" content="PUNTA" />
+    <meta property="og:image" content="https://puntaph.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="El Nido bay, Palawan — the PUNTA logo over a Philippine coastline" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Boatshed — PUNTA" />
+    <meta name="twitter:description" content="Small, salty, and right on the sand. Bauan, Batangas" />
+    <meta name="twitter:image" content="https://puntaph.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt" content="El Nido bay, Palawan — the PUNTA logo over a Philippine coastline" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://puntaph.vercel.app/stay/the-boatshed" />
+    <title>The Boatshed, Bauan, Batangas — PUNTA</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- images are fetched no-cors, so the preconnect must NOT be crossorigin
+         (that would open a separate CORS pool the images can never reuse) -->
+    <link rel="preconnect" href="https://thumb.wikimedia.org" />
+    <!-- a handful of pool files are served from upload.wikimedia.org
+         (separate hostname = separate connection pool) -->
+    <link rel="preconnect" href="https://upload.wikimedia.org" />
+    <!-- the LCP hero photograph — fetched before the bundle even loads.
+         imagesrcset/imagesizes mirror the hero <img>, so every device
+         preloads exactly the candidate it will render (phones ~260-450KB
+         instead of the old fixed 939KB). href is the fallback for
+         browsers without imagesrcset support. -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1280px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg"
+      imagesrcset="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/960px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg 960w, https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1280px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg 1280w, https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1920px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <!-- the two faces the first paint needs — preloaded in parallel with
+         the stylesheet above instead of discovered after it parses -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+    />
+    <!-- The Google Fonts stylesheet is the one render-blocking request we
+         can drop: load it async (print → all) and text still paints in the
+         same fallback fonts it always does before the swap. The two face
+         files above are preloaded in parallel with the HTML. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <style>
+      /* ============================================================
+         CRITICAL BOOT LOADER — deliberately inline.
+
+         A hard refresh paints this before the bundle exists, so it can
+         never flash an unstyled blank.
+
+         It is a hand-minified copy of `.punta-loader--lg.punta-loader--dark`
+         from src/components/system/skeletons.css, plus the same grain and
+         vignette the Entry overlay draws. That match is the whole point:
+         when React mounts, Entry's quick path renders the identical mark on
+         the identical canvas, so the logo reads as ONE continuous loader
+         from first paint to first page.
+
+         ⚠  Change one, change the other.
+
+         Three moves, all borrowed from the Entry cinematic:
+           1. the wordmark SETTLES — wide and blurred, converging into place
+           2. a warm capiz light PASSES through it, then rests
+           3. a sun CROSSES a hairline horizon
+         ============================================================ */
+
+      html { background: #141210; }
+      body { margin: 0; }
+
+      .boot {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        overflow: hidden;
+        background: radial-gradient(ellipse 120% 70% at 50% 46%, #221f19 0%, #141210 60%, #0e0d0b 100%);
+        font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      }
+
+      /* the same film grain the entry overlay carries — without it the
+         texture would visibly change the instant React takes over */
+      .boot-grain {
+        position: absolute;
+        inset: -50%;
+        background-image: repeating-conic-gradient(
+          rgba(244, 240, 232, 0.016) 0% 25%,
+          transparent 0% 50%
+        );
+        background-size: 3px 3px;
+        opacity: 0.5;
+        pointer-events: none;
+        animation: bootGrain 1.4s steps(4) infinite;
+      }
+
+      .boot-vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 90% 75% at 50% 46%, transparent 40%, rgba(10, 9, 7, 0.55) 100%);
+      }
+
+      .boot-lockup {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      /* ————— the monogram ————— */
+
+      .boot-tile {
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: calc(48px * 0.28);
+        background: #f4f0e8;
+        color: #1c1a16;
+        font-size: calc(48px * 0.54);
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      /* capiz light — crosses, then rests before the next pass */
+      .boot-tile::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(
+          100deg,
+          transparent 34%,
+          rgba(216, 201, 174, 0.6) 50%,
+          transparent 66%
+        );
+        animation: bootCapiz 2.6s cubic-bezier(0.33, 0, 0.2, 1) infinite;
+      }
+
+      /* ————— the wordmark ————— */
+
+      .boot-word {
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        line-height: 1;
+        color: transparent;
+        background-image: linear-gradient(
+          100deg,
+          rgba(244, 240, 232, 0.22) 42%,
+          #f4f0e8 50%,
+          rgba(244, 240, 232, 0.22) 58%
+        );
+        background-size: 300% 100%;
+        background-position: 0% 0;
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation:
+          bootSettle 1s cubic-bezier(0.16, 1, 0.3, 1) both,
+          bootShimmer 2.6s cubic-bezier(0.33, 0, 0.2, 1) infinite;
+      }
+
+      /* ————— the horizon ————— */
+
+      .boot-horizon {
+        position: relative;
+        overflow: hidden;
+        width: min(190px, 46vw);
+        height: 12px;
+      }
+
+      .boot-horizon::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 1px;
+        transform: translateY(-50%);
+        background: rgba(244, 240, 232, 0.16);
+      }
+
+      .boot-horizon::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 42%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #d8c9ae);
+        box-shadow: 0 0 7px rgba(216, 201, 174, 0.5);
+        animation: bootHorizon 2.6s cubic-bezier(0.33, 0, 0.2, 1) infinite;
+      }
+
+      .boot-tagline {
+        font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(244, 240, 232, 0.6);
+      }
+
+      .boot-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @keyframes bootGrain {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(-2px, 1px); }
+        50% { transform: translate(1px, -2px); }
+        75% { transform: translate(-1px, 2px); }
+        100% { transform: translate(0, 0); }
+      }
+
+      @keyframes bootCapiz {
+        0% { transform: translateX(-100%); }
+        55% { transform: translateX(100%); }
+        100% { transform: translateX(100%); }
+      }
+
+      /* Tracking only — no filter/blur (the element carries
+         background-clip: text, which a filter can drop in Safari) and no
+         opacity (React restarts this animation on mount, and an opacity
+         restart would snap the word back to invisible mid-converge). */
+      @keyframes bootSettle {
+        from {
+          letter-spacing: 0.6em;
+          text-indent: 0.6em;
+        }
+        to {
+          letter-spacing: 0.42em;
+          text-indent: 0.42em;
+        }
+      }
+
+      @keyframes bootShimmer {
+        0% { background-position: 0% 0; }
+        55% { background-position: 100% 0; }
+        100% { background-position: 100% 0; }
+      }
+
+      @keyframes bootHorizon {
+        0% { transform: translate(-110%, -50%); }
+        60% { transform: translate(250%, -50%); }
+        100% { transform: translate(250%, -50%); }
+      }
+
+      /* Everything here sweeps, travels or converges — all of it stops. The
+         mark simply sits, fully legible, with the sun parked at the centre
+         of its horizon. */
+      @media (prefers-reduced-motion: reduce) {
+        .boot-grain { animation: none; }
+
+        .boot-word {
+          animation: none;
+          background-image: none;
+          color: #f4f0e8;
+        }
+
+        .boot-tile::after { display: none; }
+
+        .boot-horizon::after {
+          animation: none;
+          left: 50%;
+          width: 70%;
+          transform: translate(-50%, -50%);
+          background: linear-gradient(90deg, transparent, #d8c9ae, transparent);
+        }
+      }
+
+      /* ————— load-failure state —————
+         Painted ONLY by the watchdog below when the bundle can't boot.
+         A healthy load never matches these selectors, so the loader's
+         normal look is untouched. Same dark canvas, same serif, same
+         pill button language as the rest of the site. */
+      .boot-fail-msg {
+        max-width: 320px;
+        margin: 0;
+        font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.55;
+        text-align: center;
+        color: rgba(244, 240, 232, 0.72);
+      }
+
+      .boot-fail-btn {
+        min-height: 44px;
+        padding: 11px 28px;
+        border: 0;
+        border-radius: 999px;
+        background: #f4f0e8;
+        color: #1c1a16;
+        font-family: Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .boot-fail-btn:hover { background: #ffffff; }
+      .boot-fail-btn:focus-visible { outline: 2px solid #d8c9ae; outline-offset: 3px; }
+    </style>
+
+    <!-- Structured data crawlers can read before any JS runs. The build
+         (scripts/prerender.mjs) appends an ItemList of every stay to
+         this graph and writes per-stay JSON-LD into /stay/*.html. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://puntaph.vercel.app/#organization",
+            "name": "PUNTA",
+            "url": "https://puntaph.vercel.app/",
+            "logo": "https://puntaph.vercel.app/favicon.svg",
+            "description": "PUNTA — Beautiful places. Meaningful escapes. Discover stays across the Philippines: Palawan, Siargao, Batangas, Baguio, Cebu, La Union, Boracay and Tagaytay."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://puntaph.vercel.app/#website",
+            "name": "PUNTA",
+            "url": "https://puntaph.vercel.app/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://puntaph.vercel.app/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://puntaph.vercel.app/#/explore?where={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-C2tdsTY4.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-FrYaDvqd.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DLRsiIWF.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PUNTA","item":"https://puntaph.vercel.app/"},{"@type":"ListItem","position":2,"name":"The Boatshed","item":"https://puntaph.vercel.app/stay/the-boatshed"}]},{"@type":"VacationRental","@id":"https://puntaph.vercel.app/stay/the-boatshed#stay","name":"The Boatshed","description":"Small, salty, and right on the sand. A converted boatshed on a working beach where fishermen still haul their nets at dawn. Basic but honest: good mattress, cold shower, and a front row seat to the daily tide. Best fo","url":"https://puntaph.vercel.app/stay/the-boatshed","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/DFC_0460_Weathered_wooden_stilt_house_and_dock_built_over_a_sandy_rocky_shoreline_with_tropical_trees_in_the_background.jpg/1280px-DFC_0460_Weathered_wooden_stilt_house_and_dock_built_over_a_sandy_rocky_shoreline_with_tropical_trees_in_the_background.jpg","address":{"@type":"PostalAddress","addressLocality":"Bauan","addressRegion":"Batangas","addressCountry":"PH"},"geo":{"@type":"GeoCoordinates","latitude":13.7942,"longitude":120.9921},"priceRange":"₱4,200/night","numberOfRooms":1,"occupancy":{"@type":"QuantitativeValue","maxValue":4},"aggregateRating":{"@type":"AggregateRating","ratingValue":4.44,"reviewCount":87},"offers":{"@type":"Offer","price":4200,"priceCurrency":"PHP","availability":"https://schema.org/InStock","url":"https://puntaph.vercel.app/stay/the-boatshed"},"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"On the beach"},{"@type":"LocationFeatureSpecification","name":"Fans"},{"@type":"LocationFeatureSpecification","name":"Kitchenette"},{"@type":"LocationFeatureSpecification","name":"Outdoor shower"}],"owner":{"@type":"Person","name":"mateo"}}]}</script>
+  </head>
+  <body>
+    <!-- Static prerender — empty in dev; scripts/prerender.mjs fills it
+         in dist/ with the home page's real content (headings, destination
+         links, featured stays) so crawlers and link previews read the
+         site's content from the first byte. It sits UNDER the loader
+         (fixed, zero layout height) and is removed by the watchdog the
+         moment React commits — visitors never see it. -->
+    <div id="prerender" style="position: fixed; inset: 0; overflow: hidden"><h1>The Boatshed</h1><p>Bauan, Batangas — Small, salty, and right on the sand.</p><p>₱4,200 per night · rated 4.44 from 87 reviews · sleeps 4 in 1 bedrooms</p><p>A converted boatshed on a working beach where fishermen still haul their nets at dawn. Basic but honest: good mattress, cold shower, and a front row seat to the daily tide. Best for travelers who measure luxury in quiet.</p><ul><li>On the beach</li><li>Fans</li><li>Kitchenette</li><li>Outdoor shower</li></ul><p><a href="https://puntaph.vercel.app/stay/the-boatshed">Book The Boatshed on PUNTA</a> · <a href="https://puntaph.vercel.app/explore?where=Batangas">More stays in Batangas</a></p></div>
+    <div id="root">
+      <!-- Replaced the moment React mounts. Every hard refresh gets the
+           brand mark instead of a blank screen. -->
+      <div class="boot" role="status">
+        <div class="boot-grain" aria-hidden="true"></div>
+        <div class="boot-vignette" aria-hidden="true"></div>
+
+        <span class="boot-lockup" aria-hidden="true">
+          <span class="boot-tile">P</span>
+          <span class="boot-word">PUNTA</span>
+        </span>
+        <span class="boot-horizon" aria-hidden="true"></span>
+        <span class="boot-tagline" aria-hidden="true">Where will you stay?</span>
+        <span class="boot-sr">Loading PUNTA</span>
+      </div>
+    </div>
+    <script>
+      /* ————— boot watchdog —————
+         Two jobs, both invisible on a healthy load:
+
+         1. DEEP LINKS — clean paths (/stay/x, /explore…) arrive via the
+            SPA fallback; map pathname (+query) onto the hash router
+            before it boots so the right page renders. Hash visits
+            (#/…) and asset requests are left alone.
+
+         2. NO ETERNAL LOADER — if the bundle fails to download, throws
+            while evaluating, or React never commits within 12s, swap
+            the loader for a friendly retry state. A committed React
+            tree flips `booted`, after which every branch here is a
+            no-op. */
+      (function () {
+        try {
+          if (!location.hash) {
+            var p = location.pathname.replace(/\/+$/, '');
+            if (p && p !== '/' && p.indexOf('/assets') !== 0 && !/\.[a-z0-9]+$/i.test(p)) {
+              history.replaceState(null, '', '/' + location.search);
+              location.hash = p + location.search;
+            }
+          }
+        } catch (e) {
+          /* history/URL quirks — fall back to whatever hash exists */
+        }
+
+        var booted = false;
+
+        function fail() {
+          if (booted) return;
+          var root = document.getElementById('root');
+          if (!root) return;
+          var boot = root.querySelector('.boot');
+          if (!boot) {
+            if (root.querySelector('.errbound, #entry-root, .site')) return;
+            boot = document.createElement('div');
+            boot.className = 'boot';
+            boot.setAttribute('role', 'status');
+            root.appendChild(boot);
+          }
+          if (boot.getAttribute('data-fail')) return;
+          boot.setAttribute('data-fail', '1');
+          var sr = boot.querySelector('.boot-sr');
+          if (sr) sr.textContent = 'PUNTA could not load.';
+          var msg = document.createElement('p');
+          msg.className = 'boot-fail-msg';
+          msg.textContent = 'We couldn’t load PUNTA. Check your connection and try again.';
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'boot-fail-btn';
+          btn.textContent = 'Try again';
+          btn.addEventListener('click', function () {
+            location.reload();
+          });
+          boot.appendChild(msg);
+          boot.appendChild(btn);
+        }
+
+        window.addEventListener(
+          'error',
+          function (e) {
+            var t = e.target;
+            if (t && t !== window && t.tagName) {
+              // resource error: only the bundle itself can stop the boot
+              if (t.tagName === 'SCRIPT' && !booted) fail();
+              return;
+            }
+            if (!booted) {
+              fail();
+              return;
+            }
+            // fatal post-boot error: if it emptied the root, one guarded reload
+            setTimeout(function () {
+              var root = document.getElementById('root');
+              if (!root || root.children.length > 0) return;
+              try {
+                if (sessionStorage.getItem('punta.reload') === '1') {
+                  booted = false;
+                  fail();
+                  return;
+                }
+                sessionStorage.setItem('punta.reload', '1');
+              } catch (err) {
+                return;
+              }
+              location.reload();
+            }, 400);
+          },
+          true
+        );
+
+        window.addEventListener('unhandledrejection', function () {
+          if (!booted) fail();
+        });
+
+        setTimeout(function () {
+          if (!booted) fail();
+        }, 12000);
+
+        // React has committed the moment #root holds anything that isn't
+        // the loader — then sweep the loader and the static prerender.
+        var iv = setInterval(function () {
+          var root = document.getElementById('root');
+          if (!root) return;
+          var kids = root.children;
+          var extra = false;
+          for (var i = 0; i < kids.length; i++) {
+            if (!kids[i].classList.contains('boot')) {
+              extra = true;
+              break;
+            }
+          }
+          if (!extra) return;
+          booted = true;
+          clearInterval(iv);
+          var boot = root.querySelector('.boot');
+          if (boot) boot.remove();
+          var pre = document.getElementById('prerender');
+          if (pre) pre.remove();
+        }, 100);
+      })();
+    </script>
+  </body>
+</html>

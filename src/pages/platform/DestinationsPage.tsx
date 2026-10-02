@@ -71,7 +71,7 @@ export function DestinationsPage() {
         })}
         {EXTRA.map((id, i) => (
           <Reveal key={id} delay={(i % 3) * 70}>
-            <div className="plc" aria-label={`${EXTRA_META[id].name} — coming soon`}>
+            <div className="plc">
               <span className="plc-media">
                 <img decoding="async" src={poolImage(EXTRA_META[id].pool, id)} alt={`${EXTRA_META[id].name} landscape`} loading="lazy" />
               </span>

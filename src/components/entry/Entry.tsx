@@ -131,12 +131,15 @@ export default function Entry({ onDone }: { onDone: () => void }) {
 
   if (gone) return null
 
+  // No role="img" on the root: that role made every descendant
+  // presentational — including the Skip button, dropping it from the
+  // accessibility tree. The cinematic already exposes the real h1 +
+  // tagline; the quick path's loader is aria-hidden, so it carries its
+  // own sr-only status instead.
   return (
     <div
       id="entry-root"
       className={`entry${exiting ? ' is-exiting' : ''}${quick ? ' is-reduced' : ''}`}
-      role="img"
-      aria-label="PUNTA — Where will you stay? Entering."
     >
       <div className="entry-grain" aria-hidden="true" />
       <div className="entry-vignette" aria-hidden="true" />
@@ -146,7 +149,10 @@ export default function Entry({ onDone }: { onDone: () => void }) {
           matching the inline boot loader it just replaced, so the logo
           reads as one continuous loader. */}
       {quick ? (
-        <PuntaLoader size="lg" tone="dark" tagline="Where will you stay?" />
+        <>
+          <PuntaLoader size="lg" tone="dark" tagline="Where will you stay?" />
+          <span className="sr-only" role="status">Loading PUNTA — Where will you stay?</span>
+        </>
       ) : (
         <EntryCinematic />
       )}

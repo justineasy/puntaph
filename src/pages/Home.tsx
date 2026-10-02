@@ -182,7 +182,17 @@ export default function Home() {
             </div>
             <div className="dest-grid-b">
               {DESTINATIONS.slice(2, 6).map((d, i) => (
-                <DestinationCard key={d.id} dest={d} delay={i * 70} />
+                <DestinationCard
+                  key={d.id}
+                  dest={d}
+                  delay={i * 70}
+                  /* grid-b is 4-col >1000px (≈23vw) and 2-col below (≈45vw) —
+                     never 1-col, so the md preset's 92vw branch would tell the
+                     browser to fetch a 960/1280px file for a ~170px slot.
+                     These exprs mirror .shell (min(1440px,100%) + gutter) and
+                     the grid gap exactly. */
+                  sizes="(max-width: 1000px) calc(45vw - 9px), calc((min(100vw, 1440px) - clamp(40px, 10vw, 128px) - 54px) / 4)"
+                />
               ))}
             </div>
           </div>
