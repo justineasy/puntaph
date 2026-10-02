@@ -87,6 +87,7 @@ body {
   background: var(--ivory);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 img {
@@ -525,10 +526,11 @@ main > * {
   border: 0;
   border-bottom: 1px solid var(--line-strong);
   background: transparent;
-  padding: 9px 0;
+  padding: 12px 0;
   font-size: 15px;
   border-radius: 0;
   transition: border-color 0.3s var(--ease);
+  min-height: 44px; /* ensures adequate tap target height on touch devices */
 }
 
 .input:focus {

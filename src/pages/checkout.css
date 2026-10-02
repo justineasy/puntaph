@@ -31,10 +31,12 @@
 
 .steps {
   display: flex;
-  gap: clamp(10px, 3vw, 34px);
+  gap: clamp(8px, 2vw, 34px);
   margin-bottom: 34px;
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
 }
 
 .step {
@@ -192,8 +194,8 @@
 .co-dates input {
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 14.5px;
+  padding: 14px 16px;
+  font-size: 15px;
   width: 100%;
   background: var(--paper);
   transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
@@ -359,5 +361,16 @@
 
   .co-side {
     order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-label {
+    display: none;
+  }
+
+  .step-dot {
+    width: 32px;
+    height: 32px;
   }
 }

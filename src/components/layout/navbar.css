@@ -347,7 +347,16 @@
   .nav-links,
   .nav-host,
   .nav-trips,
-  .discover-root {
+  .discover-root,
+  .nav-heart {
     display: none;
+  }
+
+  .nav-inner {
+    gap: 10px;
+  }
+
+  .nav-right {
+    gap: 8px;
   }
 }

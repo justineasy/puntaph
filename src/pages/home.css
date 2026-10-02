@@ -261,7 +261,8 @@
   color: var(--ivory);
   text-shadow: 0 2px 40px rgba(20, 18, 16, 0.35);
   max-width: 14ch;
-  font-size: clamp(48px, 10vw, 148px);
+  font-size: clamp(40px, 10vw, 148px);
+  overflow-wrap: break-word;
 }
 
 .hero-sub {

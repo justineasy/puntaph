@@ -113,4 +113,8 @@
   .footer-cols {
     grid-template-columns: 1fr 1fr;
   }
+
+  .footer-mark span {
+    font-size: clamp(60px, 16vw, 200px);
+  }
 }

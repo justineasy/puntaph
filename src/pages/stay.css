@@ -365,8 +365,38 @@
 
   .stay-side {
     order: 0;
-    position: static; /* sticky means nothing in a stacked flow */
-  }
+    position: static; /* sticky means nothing in a stacked flow */;
+
+    /* the booking card becomes a fixed bottom bar — always in reach,
+       floated above the mobile nav (60px + safe area). The 160px page
+       padding below keeps the end of the content clear of it. */
+
+    @media (max-width: 860px) {
+      .stay-side .booking-card {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom, 0px) + 10px);
+        z-index: 90;
+        margin-top: 0;
+        padding: 14px 18px;
+        box-shadow: 0 18px 44px -12px rgba(28, 26, 22, 0.5);
+      }
+
+      .stay-side .booking-card .bc-price {
+        font-size: 15px;
+      }
+
+      .stay-side .booking-card .bc-dates,
+      .stay-side .booking-card .bc-guests {
+        display: none;
+      }
+
+      .stay-side .booking-card .bc-btn {
+        padding: 10px 18px;
+        font-size: 13px;
+      }
+    }
 
   /* the add-to-trip CTA becomes a fixed bottom bar — always in reach,
    floated above the mobile nav (60px + safe area). The 160px page
@@ -394,6 +424,11 @@
   .stay {
     padding-bottom: 160px;
   }
+
+    .stay-side .booking-card .bc-dates,
+    .stay-side .booking-card .bc-guests {
+      display: none;
+    }
 }
 
 /* ————— add-to-trip CTA (under the booking card) ————— */
