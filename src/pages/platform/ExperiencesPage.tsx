@@ -71,7 +71,7 @@ export default function ExperiencesPage() {
             <Reveal key={x.id} delay={(i % 3) * 70}>
               <article className="plc">
                 <span className="plc-media">
-                  <img src={x.image} alt={x.title} loading="lazy" />
+                  <img decoding="async" src={x.image} alt={x.title} loading="lazy" />
                   {x.rating >= 4.9 && (
                     <span className="tag tag--dark plc-flag">Highly rated</span>
                   )}

@@ -27,7 +27,7 @@ export default function Host() {
   return (
     <div className="host">
       <section className="host-hero">
-        <img className="host-hero-img" src={editImage('host-hero', 2000, 1200)} alt="" />
+        <img decoding="async" className="host-hero-img" src={editImage('host-hero', 2000, 1200)} alt="" />
         <div className="host-hero-scrim" aria-hidden="true" />
         <div className="shell host-hero-content">
           <Reveal>

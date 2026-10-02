@@ -62,7 +62,7 @@ export default function TransportationPage() {
             <Reveal key={t.id} delay={(i % 3) * 70}>
               <article className="plc">
                 <span className="plc-media">
-                  <img src={t.image} alt={t.name} loading="lazy" />
+                  <img decoding="async" src={t.image} alt={t.name} loading="lazy" />
                   <span className="tag tag--dark plc-flag">{t.kind}</span>
                 </span>
                 <span className="plc-body">

@@ -28,7 +28,7 @@ export default function Story() {
     <article className="story">
       {/* ————— HERO ————— */}
       <header className="story-hero">
-        <img className="story-hero-img" src={editImage(story.key)} alt="" />
+        <img decoding="async" className="story-hero-img" src={editImage(story.key)} alt="" />
         <div className="story-hero-scrim" aria-hidden="true" />
         <div className="shell story-hero-content">
           <Reveal>
@@ -116,7 +116,7 @@ export default function Story() {
             </p>
             <p className="story-next-place">{next.place}</p>
           </div>
-          <img className="story-next-img" src={editImage(next.key)} alt="" />
+          <img decoding="async" loading="lazy" className="story-next-img" src={editImage(next.key)} alt="" />
           <div className="story-next-scrim" aria-hidden="true" />
         </Link>
       </Reveal>

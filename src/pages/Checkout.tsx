@@ -267,7 +267,7 @@ export default function Checkout() {
           {/* summary */}
           <aside className="co-side" aria-label="Booking summary">
             <p className="co-summary-label">Booking summary</p>
-            <img className="co-img" src={stay.images[0]} alt={stay.name} />
+            <img decoding="async" className="co-img" src={stay.images[0]} alt={stay.name} />
             <p className="co-stayname">{stay.name}</p>
             <p className="muted">{stay.location}</p>
             <span className="rating co-rating">

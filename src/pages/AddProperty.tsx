@@ -191,7 +191,7 @@ export default function AddProperty() {
                 <div className="ap-photos">
                   {['hero', 'living', 'bedroom', 'outdoor'].map((r) => (
                     <div key={r} className="ap-photo">
-                      <img
+                      <img decoding="async"
                         src={`https://picsum.photos/seed/punta-new-${r}/800/600`}
                         alt={`Reserved ${r} photo`}
                         loading="lazy"
@@ -279,7 +279,7 @@ export default function AddProperty() {
           <aside className="ap-side" aria-label="Live preview">
             <p className="field-label">Live preview</p>
             <div className="ap-preview">
-              <img src={destImage(form.destination.toLowerCase(), 800, 600)} alt="" />
+              <img decoding="async" src={destImage(form.destination.toLowerCase(), 800, 600)} alt="" />
               <div className="ap-preview-body">
                 <div className="ap-preview-top">
                   <p className="ap-preview-name">{form.name || 'Your place’s name'}</p>

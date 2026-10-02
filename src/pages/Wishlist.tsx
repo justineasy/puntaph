@@ -103,7 +103,7 @@ export default function Wishlist() {
           {savedExperiences.map((x) => (
             <article key={x.id} className="plc">
               <span className="plc-media">
-                <img src={x.image} alt={x.title} loading="lazy" />
+                <img decoding="async" src={x.image} alt={x.title} loading="lazy" />
               </span>
               <span className="plc-body">
                 <span className="plc-top">
@@ -132,7 +132,7 @@ export default function Wishlist() {
           {savedRestaurants.map((r) => (
             <article key={r.id} className="plc">
               <span className="plc-media">
-                <img src={r.image} alt={r.name} loading="lazy" />
+                <img decoding="async" src={r.image} alt={r.name} loading="lazy" />
               </span>
               <span className="plc-body">
                 <span className="plc-top">

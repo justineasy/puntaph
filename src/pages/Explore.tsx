@@ -15,7 +15,7 @@ import { IconClose, IconFilter } from '../components/system/Icons'
 import { Reveal } from '../components/system/Reveal'
 import { DESTINATIONS } from '../data/destinations'
 import { STAYS, priceBounds } from '../data/properties'
-import { heroImage } from '../data/images'
+import { heroImage, srcSetFor } from '../data/images'
 import { peso } from '../lib/format'
 import './explore.css'
 
@@ -237,7 +237,10 @@ export default function Explore() {
           <Reveal delay={140} variant="img" className="exhero-media">
             <img
               src={heroImage(1400, 1750)}
+              srcSet={srcSetFor(heroImage(1400, 1750), [960, 1280, 1920])}
+              sizes="100vw"
               alt="Morning light over a Philippine coastline"
+              decoding="async"
             />
           </Reveal>
         </div>

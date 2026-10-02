@@ -66,7 +66,7 @@ export default function DiningPage() {
             <Reveal key={r.id} delay={(i % 3) * 70}>
               <article className="plc">
                 <span className="plc-media">
-                  <img src={r.image} alt={r.name} loading="lazy" />
+                  <img decoding="async" src={r.image} alt={r.name} loading="lazy" />
                   <button
                     type="button"
                     className={`heart plc-heart${saved ? ' is-saved' : ''}`}

@@ -70,7 +70,7 @@ export default function Trips() {
             )
             return (
               <article key={t.id} className={`trip-card${t.status === 'cancelled' ? ' is-cancelled' : ''}`}>
-                <img src={stay.images[0]} alt={stay.name} />
+                <img decoding="async" loading="lazy" src={stay.images[0]} alt={stay.name} />
                 <div className="trip-info">
                   <p className={`trip-status trip-status--${t.status}`}>{t.status}</p>
                   <h2 className="h3">{stay.name}</h2>

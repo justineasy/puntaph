@@ -426,7 +426,8 @@ main > * {
     color 0.3s var(--ease),
     border-color 0.3s var(--ease),
     box-shadow 0.35s var(--ease);
-  will-change: transform;
+  /* no will-change here — it would pin a GPU layer to every button on the
+     page at once; the browser promotes on demand during the transition */
 }
 
 /* sized icons — a bare svg defaults to 300×150 and wrecks the pill */

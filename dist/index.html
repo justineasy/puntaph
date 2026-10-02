@@ -15,9 +15,25 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://thumb.wikimedia.org" crossorigin />
-    <!-- the LCP hero photograph — fetched before the bundle even loads -->
-    <link rel="preload" as="image" href="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1920px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg" />
+    <!-- images are fetched no-cors, so the preconnect must NOT be crossorigin
+         (that would open a separate CORS pool the images can never reuse) -->
+    <link rel="preconnect" href="https://thumb.wikimedia.org" />
+    <!-- a handful of pool files are served from upload.wikimedia.org
+         (separate hostname = separate connection pool) -->
+    <link rel="preconnect" href="https://upload.wikimedia.org" />
+    <!-- the LCP hero photograph — fetched before the bundle even loads.
+         imagesrcset/imagesizes mirror the hero <img>, so every device
+         preloads exactly the candidate it will render (phones ~260-450KB
+         instead of the old fixed 939KB). href is the fallback for
+         browsers without imagesrcset support. -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1280px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg"
+      imagesrcset="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/960px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg 960w, https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1280px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg 1280w, https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg/1920px-El_Nido_Bay%2C_Desert_tropical_island%2C_Coastline%2C_Palawan_Island%2C_Philippines.jpg 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -259,8 +275,8 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-B1XEbeSQ.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CuW6jb6n.css">
+    <script type="module" crossorigin src="/assets/index-XT-qzV1f.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DXrAmLqw.css">
   </head>
   <body>
     <div id="root">

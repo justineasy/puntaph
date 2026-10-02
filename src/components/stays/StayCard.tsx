@@ -5,9 +5,26 @@ import { useApp } from '../../state/AppContext'
 import { useSession } from '../../state/SessionContext'
 import { useRegion } from '../../state/RegionContext'
 import { IconArrowUpRight, IconHeart, IconStar } from '../system/Icons'
+import { srcSetFor } from '../../data/images'
 import './staycard.css'
 
-export default function StayCard({ stay, eager = false }: { stay: Stay; eager?: boolean }) {
+/**
+ * `sizes` is context-aware: the default matches the 3-col grids that go
+ * 2-col ≤1100px (wishlist/destinations) and 1-col ≤860px. Rails pass an
+ * exact pixel width so the browser never over-fetches for the narrow card.
+ */
+const GRID_SIZES = '(max-width: 860px) 92vw, (max-width: 1100px) 45vw, 31vw'
+export const RAIL_SIZES = '(max-width: 860px) 300px, 330px'
+
+export default function StayCard({
+  stay,
+  eager = false,
+  sizes = GRID_SIZES,
+}: {
+  stay: Stay
+  eager?: boolean
+  sizes?: string
+}) {
   const { isSaved, toggleSave } = useApp()
   const { isMember, priceMultiplier } = useSession()
   const { money } = useRegion()
@@ -24,6 +41,8 @@ export default function StayCard({ stay, eager = false }: { stay: Stay; eager?: 
         >
           <img
             src={stay.images[0]}
+            srcSet={srcSetFor(stay.images[0])}
+            sizes={sizes}
             alt={`${stay.name} — exterior view`}
             loading={eager ? 'eager' : 'lazy'}
             decoding="async"

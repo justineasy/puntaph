@@ -87,7 +87,7 @@ export default function MyTripPage() {
                   {dayItems.map((item) => (
                     <div key={item.id} className="ti">
                       <span className="ti-img">
-                        <img src={item.image} alt="" loading="lazy" />
+                        <img decoding="async" src={item.image} alt="" loading="lazy" />
                       </span>
                       <span>
                         <span className="ti-name">

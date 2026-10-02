@@ -5,7 +5,7 @@ import { useMyTrip } from '../state/MyTripContext'
 import { GallerySkeleton, SkeletonGroup } from '../components/system/Skeletons'
 import { IconCheck, IconHeart, IconPlus, IconStar } from '../components/system/Icons'
 import { HOSTS } from '../data/hosts'
-import { roomImage, roomLabel, ROOM_KEYS } from '../data/images'
+import { roomImage, roomLabel, ROOM_KEYS, srcSetFor } from '../data/images'
 import { ratingBuckets, reviewsFor } from '../data/reviews'
 import { getStay } from '../data/properties'
 import { useApp } from '../state/AppContext'
@@ -59,8 +59,10 @@ export default function Stay() {
         )}
         <div className={`gallery${loaded ? ' is-loaded' : ''}`} style={loaded ? undefined : { display: 'none' }}>
           <figure className="gallery-main">
-            <img
+            <img decoding="async"
               src={roomImage(stay.id, ROOM_KEYS[active])}
+              srcSet={srcSetFor(roomImage(stay.id, ROOM_KEYS[active]), [960, 1280, 1920])}
+              sizes="(max-width: 900px) 100vw, 66vw"
               alt={roomLabel(ROOM_KEYS[active])}
               onLoad={() => setLoaded(true)}
             />
@@ -68,7 +70,14 @@ export default function Stay() {
           <div className="gallery-side">
             {ROOM_KEYS.slice(1, 3).map((r) => (
               <figure key={r} className="gallery-thumb">
-                <img src={roomImage(stay.id, r)} alt={roomLabel(r)} loading="lazy" />
+                <img
+                  decoding="async"
+                  src={roomImage(stay.id, r)}
+                  srcSet={srcSetFor(roomImage(stay.id, r))}
+                  sizes="(max-width: 900px) 50vw, 33vw"
+                  alt={roomLabel(r)}
+                  loading="lazy"
+                />
               </figure>
             ))}
           </div>
@@ -122,7 +131,14 @@ export default function Stay() {
             <div className="sleep-grid">
               {Array.from({ length: stay.bedrooms }, (_, i) => (
                 <div key={i} className="sleep-card">
-                  <img src={roomImage(stay.id, 'bedroom', i + 1)} alt={`Bedroom ${i + 1}`} loading="lazy" />
+                  <img
+                    decoding="async"
+                    src={roomImage(stay.id, 'bedroom', i + 1)}
+                    srcSet={srcSetFor(roomImage(stay.id, 'bedroom', i + 1))}
+                    sizes="(max-width: 440px) 100vw, (max-width: 700px) 50vw, (max-width: 960px) 30vw, 25vw"
+                    alt={`Bedroom ${i + 1}`}
+                    loading="lazy"
+                  />
                   <p className="sleep-name">Bedroom {i + 1}</p>
                   <p className="sleep-facts muted">
                     {i === 0 ? '1 king bed' : i === 1 ? '2 double beds' : '2 single beds'}

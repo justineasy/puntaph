@@ -136,7 +136,7 @@ export default function Confirmation() {
           </p>
 
           <div className="conf-card">
-            <img src={stay.images[0]} alt={stay.name} />
+            <img decoding="async" src={stay.images[0]} alt={stay.name} />
             <div className="conf-info">
               <p className="conf-name h2">{stay.name}</p>
               <p className="conf-where muted">{stay.location}</p>
@@ -214,7 +214,7 @@ export default function Confirmation() {
           <h1 className="display conf-title">You’re going somewhere.</h1>
 
           <div className="conf-card">
-            <img src={stay.images[0]} alt={stay.name} />
+            <img decoding="async" src={stay.images[0]} alt={stay.name} />
             <div className="conf-info">
               <p className="conf-name h2">{stay.name}</p>
               <p className="conf-where muted">{stay.location}</p>

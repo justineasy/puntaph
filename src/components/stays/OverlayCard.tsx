@@ -6,6 +6,7 @@ import { useSession } from '../../state/SessionContext'
 import { useRegion } from '../../state/RegionContext'
 import { IconArrowRight, IconHeart, IconStar } from '../system/Icons'
 import { Reveal } from '../system/Reveal'
+import { srcSetFor } from '../../data/images'
 import './overlaycard.css'
 
 /**
@@ -44,6 +45,8 @@ export default function OverlayCard({
         >
           <img
             src={stay.images[0]}
+            srcSet={srcSetFor(stay.images[0])}
+            sizes="(max-width: 860px) 92vw, (max-width: 1100px) 45vw, 31vw"
             alt={`${stay.name} — ${stay.tagline}`}
             loading={eager ? 'eager' : 'lazy'}
             decoding="async"

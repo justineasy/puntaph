@@ -47,7 +47,7 @@ export function DestinationsPage() {
           <Reveal key={d.id} delay={(i % 3) * 70}>
             <Link to={`/destinations/${d.id}`} className="plc" aria-label={`${d.name} guide`}>
               <span className="plc-media">
-                <img src={poolImage(d.id, d.id)} alt={`${d.name} landscape`} loading="lazy" />
+                <img decoding="async" src={poolImage(d.id, d.id)} alt={`${d.name} landscape`} loading="lazy" />
               </span>
               <span className="plc-body">
                 <span className="plc-top">
@@ -73,7 +73,7 @@ export function DestinationsPage() {
           <Reveal key={id} delay={(i % 3) * 70}>
             <div className="plc" aria-label={`${EXTRA_META[id].name} — coming soon`}>
               <span className="plc-media">
-                <img src={poolImage(EXTRA_META[id].pool, id)} alt={`${EXTRA_META[id].name} landscape`} loading="lazy" />
+                <img decoding="async" src={poolImage(EXTRA_META[id].pool, id)} alt={`${EXTRA_META[id].name} landscape`} loading="lazy" />
               </span>
               <span className="plc-body">
                 <span className="plc-top">
@@ -113,7 +113,7 @@ export function DestinationDetailPage() {
   return (
     <div className="pl shell">
       <div className="destcover">
-        <img src={poolImage(guide.id, `${guide.id}-cover`)} alt={`${dest.name} landscape`} />
+        <img decoding="async" src={poolImage(guide.id, `${guide.id}-cover`)} alt={`${dest.name} landscape`} />
         <div className="destcover-scrim" />
         <div className="destcover-info">
           <p className="eyebrow eyebrow--light">{guide.islandGroup} · Philippines</p>
@@ -167,7 +167,7 @@ export function DestinationDetailPage() {
               <Reveal key={x.id}>
                 <article className="plc">
                   <span className="plc-media">
-                    <img src={x.image} alt={x.title} loading="lazy" />
+                    <img decoding="async" src={x.image} alt={x.title} loading="lazy" />
                   </span>
                   <span className="plc-body">
                     <span className="plc-top">
@@ -203,7 +203,7 @@ export function DestinationDetailPage() {
               <Reveal key={r.id}>
                 <article className="plc">
                   <span className="plc-media">
-                    <img src={r.image} alt={r.name} loading="lazy" />
+                    <img decoding="async" src={r.image} alt={r.name} loading="lazy" />
                   </span>
                   <span className="plc-body">
                     <span className="plc-top">

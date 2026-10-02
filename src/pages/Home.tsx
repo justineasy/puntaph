@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import { usePrefersReducedMotion } from '../hooks/useReducedMotion'
 import SearchBar from '../components/search/SearchBar'
 import DestinationCard from '../components/stays/DestinationCard'
-import StayCard from '../components/stays/StayCard'
+import StayCard, { RAIL_SIZES } from '../components/stays/StayCard'
 import { Reveal } from '../components/system/Reveal'
 import { CountUp } from '../components/system/CountUp'
 import { IconArrowRight } from '../components/system/Icons'
 import { DESTINATIONS } from '../data/destinations'
 import { OWNER_SPOTLIGHTS } from '../data/hosts'
-import { editImage, heroImage } from '../data/images'
+import { editImage, heroImage, srcSetFor } from '../data/images'
 import { featured, STAYS } from '../data/properties'
 import './home.css'
 
@@ -88,7 +88,10 @@ export default function Home() {
           <img
             className="hero-img"
             src={heroImage(2400, 1500)}
+            srcSet={srcSetFor(heroImage(2400, 1500), [960, 1280, 1920])}
+            sizes="100vw"
             alt=""
+            decoding="async"
           />
         </div>
         <div className="hero-scrim" aria-hidden="true" />
@@ -201,7 +204,7 @@ export default function Home() {
           <div className="rail">
             {editorial.map((s) => (
               <div className="rail-item" key={s.id}>
-                <StayCard stay={s} />
+                <StayCard stay={s} sizes={RAIL_SIZES} />
               </div>
             ))}
           </div>
@@ -229,7 +232,14 @@ export default function Home() {
                 <article className="edit-story">
                   <Link to={`/story/${e.key}`} className="edit-media zoom-target">
                     <span className="card-media zoom-host">
-                      <img src={editImage(e.key)} alt={e.title} loading="lazy" />
+                      <img
+                        decoding="async"
+                        src={editImage(e.key)}
+                        srcSet={srcSetFor(editImage(e.key))}
+                        sizes="(max-width: 860px) 92vw, 31vw"
+                        alt={e.title}
+                        loading="lazy"
+                      />
                     </span>
                   </Link>
                   <p className="edit-place">{e.place}</p>
@@ -260,7 +270,7 @@ export default function Home() {
           <div className="rail">
             {coastal.map((s) => (
               <div className="rail-item" key={s.id}>
-                <StayCard stay={s} />
+                <StayCard stay={s} sizes={RAIL_SIZES} />
               </div>
             ))}
           </div>
@@ -272,7 +282,14 @@ export default function Home() {
         <div className="shell">
           <Reveal variant="img">
             <div className="host-banner">
-              <img src={editImage('host-banner')} alt="" loading="lazy" />
+              <img
+                decoding="async"
+                src={editImage('host-banner')}
+                srcSet={srcSetFor(editImage('host-banner'), [960, 1280, 1920])}
+                sizes="92vw"
+                alt=""
+                loading="lazy"
+              />
               <div className="host-banner-scrim" aria-hidden="true" />
               <div className="host-banner-content">
                 <p className="eyebrow eyebrow--light">Punta for hosts</p>

@@ -50,11 +50,11 @@
   width: 100%;
   border: 0;
   background: transparent;
-  padding: 12px 14px;
+  padding: 0; /* the wrapping .sb-head label already carries the padding —
+                  extra padding here made the Where field taller than the
+                  Dates/Guests fields and stretched the whole bar */
   font-size: 14.5px;
   color: var(--charcoal);
-  border-radius: 0;
-  min-height: 44px; /* ensures adequate tap target height on touch devices */
 }
 
 .sb-input:focus {

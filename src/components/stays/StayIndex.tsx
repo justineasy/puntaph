@@ -5,6 +5,7 @@ import { useApp } from '../../state/AppContext'
 import { useSession } from '../../state/SessionContext'
 import { useRegion } from '../../state/RegionContext'
 import { IconHeart, IconStar } from '../system/Icons'
+import { srcSetFor } from '../../data/images'
 import './stayindex.css'
 
 /**
@@ -38,7 +39,14 @@ export default function StayIndex({ stays }: { stays: Stay[] }) {
                 aria-label={`${s.name}, ${s.location} — ${money(s.price)} per night`}
               >
                 <span className="idx-thumb">
-                  <img src={s.images[0]} alt="" loading="lazy" decoding="async" />
+                  <img
+                    src={s.images[0]}
+                    srcSet={srcSetFor(s.images[0], [120, 250, 330, 500])}
+                    sizes="(max-width: 640px) 84px, (max-width: 900px) 96px, 132px"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </span>
                 <span className="idx-main">
                   <span className="idx-top">
